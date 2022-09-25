@@ -91,17 +91,123 @@ books
 Gambar di bawah ini, menunjukan data kita berhasil di gabungkan
 ![Screenshot (464)](https://user-images.githubusercontent.com/86582130/192147158-45ca0d59-e632-4df4-bfa0-425d4873e7b9.png)
 
-## Data Preparation
-Menerapkan dan menyebutkan teknik data preparation yang dilakukan.
+## Data Preparation Untuk Content Based Filtering
 
-Teknik yang digunakan pada notebook dan laporan harus berurutan.
+**1. Mengecek missing value**
+Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada gambar di bawahh ini :
 
-Menjelaskan proses data preparation yang dilakukan.
+![Screenshot (465)](https://user-images.githubusercontent.com/86582130/192150687-22f62420-350a-4d35-81be-696a0efb7839.png)
+**2. Mengatasi missing value**
+Gunakan fungsi di atas untuk menghapus row yang mempunyai missing value.
+```
+books_clean = books.dropna()
+```
+Sekarang data yang kita punya berjumlah 941105. Selanjutnya kita dapat melihat jumlah buku yang unik berdasarkan ISBN. Dari data ini kita mempunyai 257808 data buku.
 
-Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+**3. Menghitung dan MelihatBerapa kali buku di rating oleh pembaca**
+Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian oleh pembaca. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan count() digunakan untuk menghitung jumlah rating
 
-Pada Data Preparation ada beberapa tahap yang harus dilakukan
-1. Membagi data train dan data test
+```
+jml_rating=books_clean.groupby('BookTitle').count()['BookRating'].reset_index()
+jml_rating.rename(columns={'BookRating':'jumlah_rating'},inplace=True)
+jml_rating
+```
+Hasil dari potongan di atas, dapat dilihat dari gambar di bawah ini :
+
+![Screenshot (466)](https://user-images.githubusercontent.com/86582130/192151454-de7c912f-3e77-492e-b415-a3acedf66ae2.png)
+
+Dari gambar di atas dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
+
+**4. Menghitung dan Melihat Berapa kali buku di rating oleh pembaca**
+Pada tahap ini, kita akan menghitung rata-rata rating. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan mean() digunakan untuk menghitung rata-rata rating
+```
+rt_rating=books_clean.groupby('BookTitle').mean()['BookRating'].reset_index()
+rt_rating
+```
+Hasil dari potongan di atas, dapat dilihat dari gambar di bawah ini :
+
+![Screenshot (467)](https://user-images.githubusercontent.com/86582130/192151654-fc9673db-7297-4010-9718-0371acb933df.png)
+
+Dari gambar di atas dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
+
+**5. Menggabungkan dataframe jml_rating dengan dataframe rt_rating berdasarkan book title**
+Setelah kita menghitung berapa kali sebuah buku dinilai pembaca dan menghitung rata-rata rating setiap buku, kita akan menggabungkan kedua dataframe di atas. Penggabungan ini bertujuan untuk membuat dataframe baru yang akan digunakan untuk memfilter buku-buku mana yang populer berdasarkan rating.
+```
+popular_books= jml_rating.merge(rt_rating,on = 'BookTitle')
+popular_books
+```
+**6. Mengambil data buku yang populer**
+Dalam proses ini kita akan mengambil data yang sudah dirating lebih dari 500 kali. 
+```
+popular_books=popular_books[popular_books['jumlah_rating']>=500].sort_values('BookRating',ascending=False).head(50)
+```
+
+**7. Merge popular_books dengan dataframe books**
+
+Gabungkan kembali data popular books diatas dengan dataframe books yang ada awal kemudian drop booktitle yang duplikat.
+![Screenshot (468)](https://user-images.githubusercontent.com/86582130/192152281-2717e9ba-0cc7-468c-a7eb-df5acb737d4a.png)
+
+**8. Mengkonversi data series menjadi list**
+Pada tahap ini kita akan mengkonversikan variabel ISBN, Book Title dan Book author menjadi list, kemudian kita hitung jumlahnya 
+```
+print(len(book_id))
+print(len(book_title))
+print(len(book_author))
+```
+Hasilnya akan menunjukan ketika variabel tersebut mempunyai 28 data
+
+**9. Membuat dictionary pada data**
+Pada tahap ini kita akan membuat dictionary untuk menentukan pasangan key-value pada data book_id, book_title, dan book_author yang telah kita siapkan sebelumnya.
+
+![Screenshot (469)](https://user-images.githubusercontent.com/86582130/192152703-05a8888b-db6e-452f-993b-7947e7254c96.png)
+
+Gambar di atas ini merupakan dataframe yang akan kita gunakan di tahap selanjutnya yaitu model development
+
+## Modeling
+
+### Model Development Untuk Content Based Filtering
+
+**1. Menerapkan TF-IDF Vectorizer**
+Pada tahap ini, kita akan membangun sistem rekomendasi sederhana berdasarkan penulis buku. Pada tahap ini kita akan melakukan 3 hal yaitu :
+ 
+- Inisialisasi TfidfVectorizer
+```
+tf = TfidfVectorizer()
+```
+- Melakukan perhitungan idf pada data author
+```
+tf.fit(book_new['author']) 
+```
+- Mapping array dari fitur index integer ke fitur nama
+```
+tf.get_feature_names() 
+```
+**2. Melakukan fit dan transformasi ke dalam bentuk matriks**
+
+![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
+
+Perhatikanlah, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
+
+**3. Menghasilkan vektor tf-idf dalam bentuk matriks**
+
+![Screenshot (472)](https://user-images.githubusercontent.com/86582130/192153137-c3c6e914-ca0f-4f7b-9278-3ec01654807f.png)
+
+**4. Melihat matriks tf-idf untuk beberapa judul buku dan nama author**
+
+![Screenshot (473)](https://user-images.githubusercontent.com/86582130/192153289-ddb146f3-fff1-4edc-a693-677608d3817b.png)
+
+Output matriks tf-idf di atas menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
+
+**5. Menghitung derajat kesamaan**
+Pada tahap ini kita akan menghitung derajat kesamaan antara satu buku dengan buku lainnya untuk menghasilkan kandidat buku yang akan direkomendasikan.
+## Modeling
+Membuat dan menjelaskan sistem rekomendasi untuk menyelesaikan permasalahan
+
+Menyajikan top-N recommendation sebagai output.
+
+Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
+
+Menjelaskan kelebihan dan kekurangan pada pendekatan yang dipilih.
 Pembagian dataset menjadi data train dan data test ini dilakukan dengan perbandingan 8:2 sehingga pada test_size diset 0.2. Pembagian dataset ini bertujuan agar memudahkan kita dalam proses evaluasi performa model dan agar kita tidak mengotori data uji dengan informasi yang kita dapat dari data latih. 
 
 ```
@@ -127,14 +233,6 @@ X_train[numerical_features].describe().round(4)
 
 Dari gambar di atas menunjukan nilai mean = 0 dan standar deviasi = 1.
 
-## Modeling
-Membuat dan menjelaskan sistem rekomendasi untuk menyelesaikan permasalahan
-
-Menyajikan top-N recommendation sebagai output.
-=
-Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-
-Menjelaskan kelebihan dan kekurangan pada pendekatan yang dipilih.
 
 Setelah dilakukan pelatihan 1 di antara 3 model ini menghasilkan hasil yang cukup jauh perbedaannya. Model ini adalah Bernoulli Naive Bayes, saat melakukan pelatihan dan melihat nilai akurasi dan f1 score, model ini menghasilkan nilai yang rendah dan perbedaan cukup signifikan dari model yang menggunakan algoritma SVM dan Logistic Regression.
 Maka dari itu **model terbaik** untuk solusi dari masalah yang dipaparkan adalah menggunakan model yang dilatih dengan **algoritma SVM dan Logistic Regression**
