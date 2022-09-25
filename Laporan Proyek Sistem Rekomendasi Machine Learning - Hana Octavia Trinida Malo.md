@@ -39,27 +39,63 @@ Dalam dataset ini terdapat 3 file yaitu books.csv, rating.csv, dan user.csv(pemb
 ### Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
 Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
 
-books   : merupakan daftar buku-buku yang ada di perpustakaan yang berisi nomor ISBN, judul buku dan penulis buku
-user    : merupakan daftar user
-rating  : merupakan daftar user dan rating yang diberikan terhadap buku yang sudah di baca
+- books   : merupakan daftar buku-buku yang ada di perpustakaan yang berisi nomor ISBN, judul buku dan penulis buku
+- user    : merupakan daftar user
+- rating  : merupakan daftar user dan rating yang diberikan terhadap buku yang sudah di baca
 
 Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibangun.
 
 ### Exploratory Data Analysis
 
-contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
 #### Unvariate variabel
 
-![Screenshot (439)](https://user-images.githubusercontent.com/86582130/190961226-d56e4502-1df0-4edc-b3dc-47607a547b21.png)
+**Exploratory Variabel books**
+Berikut ini adalah variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
+
+![Screenshot (459)](https://user-images.githubusercontent.com/86582130/192146231-b68fa486-351f-423c-a521-7fee0872cd2c.png)
+
+Gambar di bawah ini adalah data-data di dalam variabel buku. Dalam gambar ini, yang ditunjukan merupakan 4 data teratas saja
+
+![Screenshot (458)](https://user-images.githubusercontent.com/86582130/192146153-d57f17fe-c867-44a4-b1b4-03e3500c939f.png)
+
+Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
+
+![Screenshot (461)](https://user-images.githubusercontent.com/86582130/192146507-d88897c4-405c-40b4-8da5-4038b9505c32.png)
+
+Gambar di atas menunjukan data buku-buku yang kita miliki berjumlah 271360
+
+**Exploratory Variabel user**
+Data user yang merupakan pembaca buku ini, berjumlah 278858 dan memiliki 3 variabel yaitu UserID, lokasi tempat tinggal, dan umur.
+
+![Screenshot (462)](https://user-images.githubusercontent.com/86582130/192146637-44bc18a5-2cd9-4f9c-8b84-c6cb47eeabe6.png)
 
 
+**Exploratory Variabel rating**
 
+![Screenshot (463)](https://user-images.githubusercontent.com/86582130/192146821-77fac7d8-019e-418c-bf76-20a10cc47e90.png)
+Dari gambar di atas menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
+Dari fungsi rating.head(), kita dapat mengetahui bahwa data rating terdiri dari 3 kolom  Kolom-kolom tersebut antara lain:
+
+- userID, merupakan identitas pengguna.
+- ISBN, merupakan identitas buku, yang berisi nomor ISBN buku.
+- Rating, merupakan data rating untuk buku
+
+## Data Preprocessing
+
+**Menggabungkan dataframe rating dengan books berdasarkan ISBN**
+Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge berdasarkan variabe yang sama dari kedua dataframe tersebut, dalam hal ini ISBN
+```
+books = pd.merge(rating, books , on='ISBN', how='left')
+books
+```
+Gambar di bawah ini, menunjukan data kita berhasil di gabungkan
+![Screenshot (464)](https://user-images.githubusercontent.com/86582130/192147158-45ca0d59-e632-4df4-bfa0-425d4873e7b9.png)
 
 ## Data Preparation
 Menerapkan dan menyebutkan teknik data preparation yang dilakukan.
 
 Teknik yang digunakan pada notebook dan laporan harus berurutan.
-=
+
 Menjelaskan proses data preparation yang dilakukan.
 
 Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
