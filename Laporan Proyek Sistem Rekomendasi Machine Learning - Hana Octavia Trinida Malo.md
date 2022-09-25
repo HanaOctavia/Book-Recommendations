@@ -1,25 +1,29 @@
 # Laporan Proyek Machine Learning - Hana Octavia Trinida Malo
 
 ## Domain Proyek
-Tuliskan latar belakang yang relevan dengan proyek yang Anda kerjakan.
 
-Menjelaskan mengapa proyek ini penting untuk diselesaikan.
+Sistem rekomendasi adalah sistem yang digunakan untuk memberikan rekomendasi kepada customer berdasarkan berbagai informasi  yang bertujuan untuk untuk meningkatkan penjualan produk. Sistem  rekomendasi dapat ditemukan pada situs-situs belanja onlineseperti eBay, Alibaba, OLX, yang menjual pakaian, barang-barang elektronik, peralatan  rumah  tangga, dan yang lainnya. Sistem rekomendasi juga dapat ditemukan pada situs yang murni memberikan rekomendasi kepada penggunanya, seperti situs    MovieLens dan Internet Movie Database (IMDb) yang memberikan rekomendasi film yang akan ditontonkepada penggunanya[1]
 
-Menyertakan hasil riset atau referensi yang terkait.
+Pembaca di perpustakaan memiliki ketertarikan membaca yang berbeda - beda, ada pembaca yang menyukai beberapa penulis buku saja sehingga hanya ingin membaca penulis yang pembaca suka. Ada juga pembaca yang membaca buku, dilihat dari seberapa disukainya buku itu oleh pembaca yang sudah pernah membaca buku sebelumnya. Semakin banyak yang menyukai buku itu, semakin tertarik pembaca tersebut untuk membaca buku itu.
 
-Merokok adalah kegiatan mengkonsumsi rokok. Orang-orang yang mengisap rokok disebut perokok. Perokok dibagi atas dua, yaitu perokok aktif dan perokok pasif. perokok aktif adalah perokok yang mengisap rokok secara langsung menggunakan mulut serta menghirup asap rokok, sedangkan perokok pasif adalah perokok yang hanya menghirup asap rokok. Di dalam satu batang rokok yang diisap akan mengeluarkan sekitar 4.000 bahan kimia berbahaya yang dapat menyebabkan efek berbahaya bagi tubuh dan menimbulkan kecanduan[1].
-
-Berbagai cara dilakukan untuk mengurangi tingkat konsumsi rokok dalam masyarakat, salah satunya dengan membatasi area-area tertentu untuk tidak menjadi kawasan asap rokok. Kenyataannya masyarakat sering kali tidak mematuhi peraturan dan merokok di sembarang tempat.
-
-Berdasarkan masalah-masalah di atas, banyak perusahaan ingin yang membangun alat yang dapat mendeteksi asap rokok, sehingga ketika ada masyarakat yang merokok di daerah yang bebas asap rokok dapat diberi peringatan. Dalam pembuatan alat ini bukan hanya bahan apa saja yang dipakai, tetapi bagaimana alat tersebut dapat mendeteksi adanya asap rokok atau tidak dengan benar.
+Jumlah buku bacaan yang ada di perpustakaan saat ini, kurang lebih berjumlah 250an ribu buku. Banyaknya jumlah buku ini seringkali membuat pembaca kesulitan untuk memilih buku yang ingin dibaca, dan berakhir mengurungkan niat untuk membaca buku. Untuk mempermudah pembaca dalam membaca buku yang sesuai dengan keinginannya perlu dibangun sebuah sistem rekomendasi, dibangunnya sistem rekomendasi tentunya dapat menjadi solusi terbaik agar jumlah pembaca bertambah.
 
 
 ## Pendefinisian Bisnis
-Sebuah perusahaan ingin membuat sebuah alat yang dapat mendeteksi asap rokok. Dalam pembangunan alat tersebut menerapkan IoT dan model Machine Learning. Dalam membangun sebuah model Machine Learning yang baik, dibutuhkan beberapa variabel yang dapat mempengaruhi apakah alat tersebut (kita sebut saja alarm) dapat berbunyi saat ada asap rokok atau tidak. Variabel-variabel ini seperti senyawa organik, kelembapan udara, konsentrasi CO2, tekanan udara, serta gas etanol.
-
-
+Sebuah perpustakaan memiliki berbagai informasi mengenai pembaca, daftar buku dan beserta rating yang diberikan pembaca untuk buku-buku tersebut. Perpustakaan ini ingin memiliki sebuah sistem rekomendasi yang dapat memberikan rekomendasi kepada pembaca berdasarkan penulis buku yang pernah dia baca sebelumnya dan rating pembaca.
 
 ### Masalah
+Sebagai seorang Data Scientist, tentu Anda ingin memanfaatkan data tersebut untuk meningkatkan transaksi di perusahaan. Kembangkan sebuah sistem rekomendasi buku di amazon untuk menjawab permasalahan berikut:
+
+- Berdasarkan data mengenai pengguna, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
+- Dengan data rating yang Anda miliki, bagaimana perusahaan dapat merekomendasikan restoran lain yang mungkin disukai dan belum pernah dikunjungi oleh pengguna? 
+
+Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
+
+- Menghasilkan sejumlah rekomendasi restoran yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
+- Menghasilkan sejumlah rekomendasi restoran yang sesuai dengan preferensi pengguna dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering.
+
+
 Berdasarkan latar belakang yang telah diuraikan di atas, maka dapat dirumuskan masalah-masalah yang harus diselesaikan antara lain :
 - Dari serangkaian variabel yang ada, variabel apa yang paling berpengaruh terhadap kesuksesan alarm dapat berbunyi saat ada asap rokok?
 - Apakah kelembapan udara berpengaruh terhadap dalam pendeteksian asap rokok?
@@ -146,9 +150,7 @@ Dari gambar di atas, skor akurasi dan f1 untuk model svc dan LR bernilai 1 sesua
 Berdasarkan hasil pelatihan model menggunakan 3 algoritma berbeda dan evaluasi menggunakan 2  metrik evaluasi yaitu akurasi dan f1 score, kemudian melakukan prediksi, menunjukan model yang tepat untuk melakukan predeksi ada tidaknya asap rokok adalah model yang dibangun dengan Bernaullie Naive Bayes, algoritma Support Vector Machine dan Logistic Regression. Ketiga algortima ini menunjukan hasil prediksi yang baik dan hasil akurasi di atas 80%
 
 ## Referensi
-[1] Buleleng, Admin., 2021. *Mengenal Rokok Serta Dampaknya Bagi Kesehatan*. [Online] 
-Available at: https://buleleng.bulelengkab.go.id/informasi/detail/artikel/58-mengenal-rokok-serta-dampaknya-bagi-kesehatan
-[Accessed 17 September 2022].
+[1] Ritdrix, A. H. & Wirawan, P. W., 2018. Sistem Rekomendasi Bukumenggunakan Metode Item-Basedcollaborative Filtering. *Jurnal Masyarakat Informatika*, 9(2), pp. 24-32.
 
 [2] Dewi, I. P., Lhaksmana, K. M. & Jondri, 2021. Prediksi Retweet Menggunakan Metode Bernoulli dan Gaussian Naive Bayes di Media Sosial Twitter Dengan Topik Vaksinasi Covid-19. *e-Proceeding of Engineering*. 2021. 8(5), pp. 11216-11225.
 
