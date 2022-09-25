@@ -378,23 +378,52 @@ history = model.fit(
 ### Mendapatkan Rekomendasi Buku
 
 Untuk mendapatkan rekomendasi buku, pertama kita ambil sampel user secara acak dan definisikan variabel book_not_read yang merupakan daftar buku yang belum pernah dibaca. sample ini yang akan menjadi buku yang kita rekomendasikan kepada pembaca. 
+```
+book_not_read = book_df[~book_df['id'].isin(book_read_by_user.ISBN.values)]['id'] 
+```
 
 Sebelumnya, pembaca telah memberi rating pada beberapa buku yang telah dibaca sebelumnya, kita akan menggunakan rating ini untuk membuat rekomendasi buku kepada pembaca.
 
 Untuk memperoleh rekomendasi buku, gunakan fungsi model.predict().
-
-Dari gambar di atas, rekomendasi untuk pembaca dengan id U1071. Dari output tersebut, kita dapat membandingkan antara Buku dengan rating teringgi beserta rekomendasi bukunya.
+```
+ratings = model.predict(user_book_array).flatten()
+```
+Dibawah ini merupakan rekomendasi buku untuk user dengan ID 224349
+```
+Showing recommendations for users: 224349
+===========================
+books with high ratings from user
+--------------------------------
+--------------------------------
+Top 10 books recommendation
+--------------------------------
+Harry Potter and the Chamber of Secrets (Book 2) : J. K. Rowling
+Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback)) : J. K. Rowling
+Where the Heart Is (Oprah's Book Club (Paperback)) : Billie Letts
+Life of Pi : Yann Martel
+The Notebook : Nicholas Sparks
+Bridget Jones's Diary : Helen Fielding
+The Pilot's Wife : A Novel : Anita Shreve
+The Summons : John Grisham
+Summer Sisters : Judy Blume
+The Firm : John Grisham
+```
 
 ### Evaluation
 
 Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4]. Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
 
-Dari proses ini, kita memperoleh nilai error akhir sebesar sekitar 0.23 dan error pada data validasi sebesar 0.34. Nilai tersebut cukup bagus untuk sistem rekomendasi. 
+![Screenshot (477)](https://user-images.githubusercontent.com/86582130/192162666-a273f187-c5e8-49cf-9fab-d024fd4ed06e.png)
 
+Dari gambar di atas, root_mean_squared_error bernilai 0.3949 dan val_root_mean_squared_error bernilai 0.4060. Skor ini sudah cukup bagus untuk sistem rekomendasi kita.
 
+Berikut ini adalah visualisasi metrik dengan plot
+
+![Screenshot (478)](https://user-images.githubusercontent.com/86582130/192162604-78a85e19-a54d-48cd-b65c-11411ca8cae8.png)
 
 ## Kesimpulan
-Berdasarkan hasil pelatihan model menggunakan 3 algoritma berbeda dan evaluasi menggunakan 2  metrik evaluasi yaitu akurasi dan f1 score, kemudian melakukan prediksi, menunjukan model yang tepat untuk melakukan predeksi ada tidaknya asap rokok adalah model yang dibangun dengan Bernaullie Naive Bayes, algoritma Support Vector Machine dan Logistic Regression. Ketiga algortima ini menunjukan hasil prediksi yang baik dan hasil akurasi di atas 80%
+
+Berdasarkan hasil *development* sistem rekomendasi menggunakan 2 metode yaitu Content-Based Filtering dan Collaborative Filltering dan evaluasi menggunakanmetrik RMSE, menunjukan bahwa kedua metode ini dapat membangun rekomendasi dengan baik, ditunjukan dengan kemampuan merekomendasikan buku berdasarkan penulis dan rating teraik
 
 ## Referensi
 
