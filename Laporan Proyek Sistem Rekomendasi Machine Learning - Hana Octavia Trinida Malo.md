@@ -35,6 +35,8 @@ Solusi untuk mencapai tujuan diatas adalah :
 - menerapkan collaborative filtering dalam membuat sistem rekomendasi, dimana mennggunakan data rating untuk merekomendasikan kepada pembaca
 
 ## Content Based Filtering
+Rekomendasi yang diberikan oleh content-based filtering dimulai dengan memahami kebutuhan pengguna, preferensi, dan kendala jika ada. Informasi ini digabungkan dengan interaksi pengguna sebelumnya untuk membangun profil pengguna. Content-based filtering juga dapat menjadikan item baru untuk langsung direkomendasikan kepada pengguna tanpa harus menunggu pengguna-pengguna lain untuk melakukan rating pada item tersebut[2]
+Kelemahan dari metode content-based filtering adalah terbatasnya rekomendasi hanya pada item-item yang mirip sehingga tidak ada kesempatan untuk mendapatkan item yang tidak terduga.[3]
 ### Data Understanding
 
 Dataset yang saya gunakan merupakan dataset yang memiliki data buku, pembaca, dan rating, yang saya unduh dari link berikut : [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset) 
@@ -261,6 +263,8 @@ closest = closest.drop(book_name, errors='ignore')
 Perhatikan gambar di atas , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
 
 ## Collaborative Filtering
+collaborative filtering dapat diartikan sebagai metode yang dapat memberikan rekomendasi berdasarkan suatu hal yang disukai oleh satu pengguna, dengan pengguna lain yang memiliki preferensi yang mirip[2].
+Kelebihan dari pendekantan user based collaborative filtering adalah dapat menghasilkan rekomendasi yang berkualitas baik. Sedangkan kekurangannya adalah kompleksitas perhitungan akan semakin bertambah seiring dengan bertambahnya pengguna sistem, semakin banyak pengguna (user) yang menggunakan sistem maka proses perekomendasian akan semakin lama 
 
 ### Data Understanding
 
@@ -367,25 +371,21 @@ history = model.fit(
 )
 ```
 
-Membuat dan menjelaskan sistem rekomendasi untuk menyelesaikan permasalahan
+### Mendapatkan Rekomendasi Buku
 
-Menyajikan top-N recommendation sebagai output.
+Untuk mendapatkan rekomendasi buku, pertama kita ambil sampel user secara acak dan definisikan variabel book_not_read yang merupakan daftar buku yang belum pernah dibaca. sample ini yang akan menjadi buku yang kita rekomendasikan kepada pembaca. 
 
-Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
+Sebelumnya, pembaca telah memberi rating pada beberapa buku yang telah dibaca sebelumnya, kita akan menggunakan rating ini untuk membuat rekomendasi buku kepada pembaca.
 
-Menjelaskan kelebihan dan kekurangan pada pendekatan yang dipilih.
+Untuk memperoleh rekomendasi buku, gunakan fungsi model.predict().
 
+Dari gambar di atas, rekomendasi untuk pembaca dengan id U1071. Dari output tersebut, kita dapat membandingkan antara Buku dengan rating teringgi beserta rekomendasi bukunya.
 
 ### Evaluation
 
-Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE)
-Menyebutkan metrik evaluasi yang digunakan.
+Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4] Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
 
-Menjelaskan hasil proyek berdasarkan metrik evaluasi.
-
-Menjelaskan metrik evaluasi yang digunakan untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja).
-
-Perhatikanlah, proses training model cukup smooth dan model konvergen pada epochs sekitar 100. Dari proses ini, kita memperoleh nilai error akhir sebesar sekitar 0.23 dan error pada data validasi sebesar 0.34. Nilai tersebut cukup bagus untuk sistem rekomendasi. Mari kita cek, apakah model ini bisa membuat rekomendasi dengan baik?
+Dari proses ini, kita memperoleh nilai error akhir sebesar sekitar 0.23 dan error pada data validasi sebesar 0.34. Nilai tersebut cukup bagus untuk sistem rekomendasi. 
 
 
 
@@ -393,13 +393,15 @@ Perhatikanlah, proses training model cukup smooth dan model konvergen pada epoch
 Berdasarkan hasil pelatihan model menggunakan 3 algoritma berbeda dan evaluasi menggunakan 2  metrik evaluasi yaitu akurasi dan f1 score, kemudian melakukan prediksi, menunjukan model yang tepat untuk melakukan predeksi ada tidaknya asap rokok adalah model yang dibangun dengan Bernaullie Naive Bayes, algoritma Support Vector Machine dan Logistic Regression. Ketiga algortima ini menunjukan hasil prediksi yang baik dan hasil akurasi di atas 80%
 
 ## Referensi
+
 [1] Ritdrix, A. H. & Wirawan, P. W., 2018. Sistem Rekomendasi Bukumenggunakan Metode Item-Basedcollaborative Filtering. *Jurnal Masyarakat Informatika*, 9(2), pp. 24-32.
 
-[2] Dewi, I. P., Lhaksmana, K. M. & Jondri, 2021. Prediksi Retweet Menggunakan Metode Bernoulli dan Gaussian Naive Bayes di Media Sosial Twitter Dengan Topik Vaksinasi Covid-19. *e-Proceeding of Engineering*. 2021. 8(5), pp. 11216-11225.
+[2]Devi, A. A. P. & Tonara, D. B., 2015. Rancang Bangun Recommender System dengan Menggunakan Metode Collaborative Filtering untuk Studi Kasus Tempat Kuliner di Surabaya. *JUISI*, 1(2), pp. 102-112.
 
-[3]Ichwan, M., Dewi, I. A. & S, Z. M., 2018. Klasifikasi Support Vector Machine (SVM) Untuk Menentukan TingkatKemanisan Mangga Berdasarkan Fitur Warna. *MIND Journal* , 3(2), pp. 16-24.
+[3]Mondi, R. H., Wijayanto, A. & Winarno, 2019. Recommendation System With Content-Based Filtering Method For Culinary Tourism In Mangan Application. *Jurnal Ilmiah Teknologi dan Informasi*, 8(2), pp. 65-72.
 
-[4]Satria, F., Zamhariri & Syaripudin, M. A., 2020. Prediksi Ketepatan Waktu Lulus Mahasiswa Menggunakan Algoritma C4.5 Pada Fakultas Dakwah Dan Ilmu Komunikasi UIN Raden Intan Lampung. *Jurnal Ilmiah MATRIK*, 22(1), pp. 28-35.
+[4] M. Nilashi, K. Bagherifard, O. Ibrahim, H. Alizadeh, L. A. Nojeem, and N. Roozegar, 2018. Collaborative filtering recommender systems. *Research Journal of Applied Sciences, Engineering and Technology*, 5(16), pp. 4168–4182.
+
 
 
 
