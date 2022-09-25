@@ -35,8 +35,11 @@ Solusi untuk mencapai tujuan diatas adalah :
 - menerapkan collaborative filtering dalam membuat sistem rekomendasi, dimana mennggunakan data rating untuk merekomendasikan kepada pembaca
 
 ## Content Based Filtering
-Rekomendasi yang diberikan oleh content-based filtering dimulai dengan memahami kebutuhan pengguna, preferensi, dan kendala jika ada. Informasi ini digabungkan dengan interaksi pengguna sebelumnya untuk membangun profil pengguna. Content-based filtering juga dapat menjadikan item baru untuk langsung direkomendasikan kepada pengguna tanpa harus menunggu pengguna-pengguna lain untuk melakukan rating pada item tersebut[2]
-Kelemahan dari metode content-based filtering adalah terbatasnya rekomendasi hanya pada item-item yang mirip sehingga tidak ada kesempatan untuk mendapatkan item yang tidak terduga.[3]
+
+Content Base Filtering adalah teknik rekomendasi yang memberikan rekomendasi kepada pengguna dengan memahami kebutuhan , preferensi, dan kendala pengguna. Informasi ini dan interaksi pengguna sebelumnya, kemudian dibuat sedemikian rupa untuk membangun profil pengguna. Kelebihan teknik ini adalah dapat memberikan rekomendasi kepada pengguna walaupun hal yang direkomendasi merupakan item baru tanpa harus melihat rating dari item baru tersebut[2]. 
+
+Kelemahan dari teknik content-based filtering adalah hanya dapat merekomendasika tem-item yang memiliki kemiripan sehingga item yang direkomendasi terbatas[3].
+
 ### Data Understanding
 
 Dataset yang saya gunakan merupakan dataset yang memiliki data buku, pembaca, dan rating, yang saya unduh dari link berikut : [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset) 
@@ -263,8 +266,9 @@ closest = closest.drop(book_name, errors='ignore')
 Perhatikan gambar di atas , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
 
 ## Collaborative Filtering
-collaborative filtering dapat diartikan sebagai metode yang dapat memberikan rekomendasi berdasarkan suatu hal yang disukai oleh satu pengguna, dengan pengguna lain yang memiliki preferensi yang mirip[2].
-Kelebihan dari pendekantan user based collaborative filtering adalah dapat menghasilkan rekomendasi yang berkualitas baik. Sedangkan kekurangannya adalah kompleksitas perhitungan akan semakin bertambah seiring dengan bertambahnya pengguna sistem, semakin banyak pengguna (user) yang menggunakan sistem maka proses perekomendasian akan semakin lama 
+
+Collaborative filtering merupakan salah satu metode rekomendasi yang dapat memberikan rekomendasi kepada pengguna berdasarkan item yang disukai oleh pengguna lain yang memiliki preferensi yang mirip[2].
+Kelebihan dari pendekatan metode ini adalah dapat menghasilkan rekomendasi yang berkualitas. Kekurangan metode ini , kompleksitas perhitungan akan semakin bertambah seiring dengan bertambahnya pengguna sistem, semakin banyak pengguna yang menggunakan sistem maka proses perekomendasian akan semakin lama 
 
 ### Data Understanding
 
@@ -383,7 +387,7 @@ Dari gambar di atas, rekomendasi untuk pembaca dengan id U1071. Dari output ters
 
 ### Evaluation
 
-Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4] Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
+Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4]. Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
 
 Dari proses ini, kita memperoleh nilai error akhir sebesar sekitar 0.23 dan error pada data validasi sebesar 0.34. Nilai tersebut cukup bagus untuk sistem rekomendasi. 
 
