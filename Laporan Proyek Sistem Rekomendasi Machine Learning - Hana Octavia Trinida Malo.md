@@ -423,7 +423,7 @@ Berikut ini adalah visualisasi metrik dengan plot
 
 ## Kesimpulan
 
-Berdasarkan hasil *development* sistem rekomendasi menggunakan 2 metode yaitu Content-Based Filtering dan Collaborative Filltering dan evaluasi menggunakanmetrik RMSE, menunjukan bahwa kedua metode ini dapat membangun rekomendasi dengan baik, ditunjukan dengan kemampuan merekomendasikan buku berdasarkan penulis dan rating teraik
+Berdasarkan hasil *development* sistem rekomendasi menggunakan 2 metode yaitu Content-Based Filtering dan Collaborative Filltering dan evaluasi menggunakanmetrik RMSE, menunjukan bahwa kedua metode ini dapat membangun rekomendasi dengan baik, ditunjukan dengan kemampuan merekomendasikan buku berdasarkan penulis dan rating teratas
 
 ## Referensi
 
