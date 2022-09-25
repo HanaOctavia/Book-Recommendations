@@ -1,6 +1,12 @@
 # Laporan Proyek Machine Learning - Hana Octavia Trinida Malo
 
 ## Domain Proyek
+Tuliskan latar belakang yang relevan dengan proyek yang Anda kerjakan.
+
+Menjelaskan mengapa proyek ini penting untuk diselesaikan.
+
+Menyertakan hasil riset atau referensi yang terkait.
+
 Merokok adalah kegiatan mengkonsumsi rokok. Orang-orang yang mengisap rokok disebut perokok. Perokok dibagi atas dua, yaitu perokok aktif dan perokok pasif. perokok aktif adalah perokok yang mengisap rokok secara langsung menggunakan mulut serta menghirup asap rokok, sedangkan perokok pasif adalah perokok yang hanya menghirup asap rokok. Di dalam satu batang rokok yang diisap akan mengeluarkan sekitar 4.000 bahan kimia berbahaya yang dapat menyebabkan efek berbahaya bagi tubuh dan menimbulkan kecanduan[1].
 
 Berbagai cara dilakukan untuk mengurangi tingkat konsumsi rokok dalam masyarakat, salah satunya dengan membatasi area-area tertentu untuk tidak menjadi kawasan asap rokok. Kenyataannya masyarakat sering kali tidak mematuhi peraturan dan merokok di sembarang tempat.
@@ -27,12 +33,15 @@ Tujuan dari pembuatan laporan proyek ini adalah :
 
 ### Solusi
 Solusi untuk mencapai tujuan diatas adalah :
-- Menganalisis dataset menggunakan EDA
-- Menggunakan Bernoullie Naive Bayes, Support Vector Machine dan Logistic Regression algoritma dalam membangun model
-- Melakukan evaluasi dengan melihat akurasi dan nilai f1 dengan 'akurasi model', dan 'f1 score'
+Mengajukan dua solution approach (content based filtering dan collaborative filtering)
 
 
 ## Data Understanding
+Memberikan informasi seperti jumlah data, kondisi data, dan informasi mengenai data yang digunakan.
+
+Menuliskan tautan sumber data (link download).
+
+Menguraikan seluruh variabel atau fitur pada data.
 Dataset yang saya gunakan merupakan dataset untuk mendeteksi asap rokok, yang saya unduh dari link berikut : [Smoke Detection Dataset](https://www.kaggle.com/datasets/deepcontractor/smoke-detection-dataset) 
 Dataset ini memiliki target variabel dengan value biner (0 dan 1). Selain itu, dataset ini juga mengandung lebih dari 60.000 baris data dan 16 kolom
 
@@ -56,16 +65,7 @@ Dataset ini memiliki target variabel dengan value biner (0 dan 1). Selain itu, d
 
 ### Exploratory Data Analysis
 
-#### Mengatasi Outliners
-Mengecek apakah variabel-variabel yang ada mempunyai outliners dengan boxplot.
-![boxplot outliners](https://user-images.githubusercontent.com/86582130/190961263-4610b2dc-cd2a-4403-82b1-c887bb086112.png)
-
-Dari gambar di atas, terlihat bahwa variabel-variabel yang ada pada dataset terdeteksi outliners maka kita dapat mengatasinya dengan **IQR Method**
-Hasil dari penggunaan IQR Method
-```
-(35684, 15)
-```
-Bisa dilihat terjadi pengurangan dataset, yang awalnya 62630 menjadi 35684
+contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
 #### Unvariate variabel
 Pada proses ini, saya membagi fitur pada dataset menjadi dua bagian, yaitu numerical features dan categorical features.
 ```
@@ -83,23 +83,17 @@ plt.show()
 ![Screenshot (439)](https://user-images.githubusercontent.com/86582130/190961226-d56e4502-1df0-4edc-b3dc-47607a547b21.png)
 
 
-#### Multivariate variabel
-Tahap ini bertujuan untuk melihat apakah ada korelasi antara data numerik dengan data target yaitu 'Fire Alarm'
-```
-plt.figure(figsize=(10, 8))
-correlation_matrix = sp.corr().round(2)
- 
-sns.heatmap(data=correlation_matrix, annot=True, cmap='Purples', linewidths=0.5, )
-plt.title("Correlation Matrix untuk Fitur Numerik ", size=20)
-```
-![metrik](https://user-images.githubusercontent.com/86582130/190961212-1564349a-7200-4903-ad4a-e51465f36f4b.png)
 
-Dari visualisasi di atas ada beberapa kesimpulan
-- variabel CNT memiliki korelasi yang paling tinggi dengan Fire Alarm, namun sayangnya data yang dimiliki tidak berpengaruh pada Fire alarm karena hanya merupakan data Simple count
-- variabel TVOC[ppb] memiliki korelasi yang paling tinggi dengan variabele fire alarm
-- variabel Temperature, humidity, eCO2 memiliki korelasi yang sangat rendah dengan data target kita, sehingga kita bisa mengabaikan variabel ini dengan cara mendropnya
 
 ## Data Preparation
+Menerapkan dan menyebutkan teknik data preparation yang dilakukan.
+
+Teknik yang digunakan pada notebook dan laporan harus berurutan.
+=
+Menjelaskan proses data preparation yang dilakukan.
+
+Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+
 Pada Data Preparation ada beberapa tahap yang harus dilakukan
 1. Membagi data train dan data test
 Pembagian dataset menjadi data train dan data test ini dilakukan dengan perbandingan 8:2 sehingga pada test_size diset 0.2. Pembagian dataset ini bertujuan agar memudahkan kita dalam proses evaluasi performa model dan agar kita tidak mengotori data uji dengan informasi yang kita dapat dari data latih. 
@@ -128,80 +122,23 @@ X_train[numerical_features].describe().round(4)
 Dari gambar di atas menunjukan nilai mean = 0 dan standar deviasi = 1.
 
 ## Modeling
-Model Machine Learning yang saya gunakan untuk menyelesaikan masalah adalah :
-1. Bernoulli Naive Bayes
-Dalam penelitian Dewi dkk menyatakan bahwa Bernoulli Naïve bayes lebih unggul dibanding metode Gaussian Naïve Bayes, dikarenakan data yang digunakan untuk penelian terdiri dari beberapa variabel yang memiliki nilai biner. [2] Cara kerja Naive bayes sendiri adalah menghitung peluang dari satu kelas dari masing-masing kelompok atribut yang ada dan menentukan kelas mana yang paling optimal. Pada kasus ini saya menghitung peluang adanya asap rokok dengan menggunakan beberapa variabel yang ada.
-```
-bnb = BernoulliNB()
-```
+Membuat dan menjelaskan sistem rekomendasi untuk menyelesaikan permasalahan
 
-2. Support Vector Machine
-Dalam penelitian Ichwan dkk metode SVM berdasarkan penelitian ini menyatakan bawah SVM mampu menghasilkan model klasifikasi yang baik meskipun dilatih dengan data yang sedikit. Kelemahan metode SVM berdasarkan penelitian ini adalah sulit diterapkan untuk data yang memiliki jumlah dimensi yang sangat besar[3]. Cara kerja SVM adalah dengan menempatkan garis lurus(decision boundary) untuk membagi 2 kelas. Untuk mendapatkan decision boundary terbaik, svm menggunakan metode Soft-Margin, dan kernel. Dalam pelatihan model, saya menggunakan SVM untuk 2 kelas yaitu ada asap rokok dan tidak ada asap rokok.
-```
-svc = SVC(random_state = 42)
-```
+Menyajikan top-N recommendation sebagai output.
+=
+Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
 
-3. Logistic Regression
-Regresi Logistik adalah metode klasifikasi yang memperkirakan probabilitas suatu peristiwa terjadi. Pada kasus ini, yaitu pendeteksi asap rokok yang merupakan kalasifikasi ada atau tidaknya asap rokok, logistic regression bekerja dengan menghitung probabilitas kelas dari sampel yang ada. 
-```
-LR = LogisticRegression(solver='lbfgs', max_iter=1000)
-```
-Tuning hyperparameters :
-solver : metode optimasi kita set 'lbfgs'
+Menjelaskan kelebihan dan kekurangan pada pendekatan yang dipilih.
 
 Setelah dilakukan pelatihan 1 di antara 3 model ini menghasilkan hasil yang cukup jauh perbedaannya. Model ini adalah Bernoulli Naive Bayes, saat melakukan pelatihan dan melihat nilai akurasi dan f1 score, model ini menghasilkan nilai yang rendah dan perbedaan cukup signifikan dari model yang menggunakan algoritma SVM dan Logistic Regression.
 Maka dari itu **model terbaik** untuk solusi dari masalah yang dipaparkan adalah menggunakan model yang dilatih dengan **algoritma SVM dan Logistic Regression**
 
 ## Evaluation
-Untuk mengevaluasi model saya menggunakan 2 metrik yaitu akurasi dan f1 score
-1. Akurasi
-Akurasi adalah teknik pengukuran model yang nantinya hasil pengukurannya dapat mengetahui kinerja dari model[3]
+Menyebutkan metrik evaluasi yang digunakan.
 
-Formula perhitungan akurasi adalah :
------**Akurasi = (data berhasil/jumlah data) × 100%**----
+Menjelaskan hasil proyek berdasarkan metrik evaluasi.
 
-Berikut ini adalah potongan kode untuk melihat akurasi model yang sudah dilatih
-```
-for nama_model, model in models:
-    # Prediksi y_pred
-    y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-
-    # melihat akurasi model
-    print('{:s} acc score : {:.3f}'.format(nama_model, acc))
-```
-
-Hasil dari metrik akurasi adalah :
-```
-bnb acc score : 0.820
-svc acc score : 1.000
-LR acc score : 1.000
-```
-2. f1 Score
-F1-Score memiliki teknik pengukuran pada model klasifikasi yang baik. Dengan menggunakan f1-score sebagai acuan, dapat mengukur kinerja sistem lebih baik dari pada akurasi dan precision[4]
-
------**F1 Score = 2 × (Recall×Precission) / (Recall + Precission)**----
-Berikut ini adalah potongan kode untuk melihat f1 score model yang sudah dilatih
-
-```
-for nama_model, model in models:
-    # Prediksi y_pred
-    y_pred = model.predict(X_test)
-    f1 = f1_score(y_test, y_pred)
-
-    # melihat akurasi model
-    print('{:s} f1 score : {:.3f}'.format(nama_model, f1))
-```
-Hasil dari metrik akurasi adalah :
-```
-bnb f1 score : 0.884
-svc f1 score : 1.000
-LR f1 score : 1.000
-```
-Plot metrik dengan bar chart :
-
-![plot metrik](https://user-images.githubusercontent.com/86582130/190961097-7d86cf58-cce0-4de4-a34e-a0b07b354d2d.png)
-
+Menjelaskan metrik evaluasi yang digunakan untuk mengukur kinerja model (formula dan cara metrik tersebut bekerja).
 
 Dari gambar di atas, skor akurasi dan f1 untuk model svc dan LR bernilai 1 sesuai dengan perhitungan di atas, tetapi model bnb juga pada skor akurasi dan f1 bernilai 1 di plot tetapi tidak sesuai dengan perhitungan di atas yaitu acc = 0.820 dan f1_score = 0,820.
 
