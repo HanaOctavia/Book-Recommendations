@@ -13,77 +13,43 @@ Jumlah buku bacaan yang ada di perpustakaan saat ini, kurang lebih berjumlah 250
 Sebuah perpustakaan memiliki berbagai informasi mengenai pembaca, daftar buku dan beserta rating yang diberikan pembaca untuk buku-buku tersebut. Perpustakaan ini ingin memiliki sebuah sistem rekomendasi yang dapat memberikan rekomendasi kepada pembaca berdasarkan penulis buku yang pernah dia baca sebelumnya dan rating pembaca.
 
 ### Masalah
-Sebagai seorang Data Scientist, tentu Anda ingin memanfaatkan data tersebut untuk meningkatkan transaksi di perusahaan. Kembangkan sebuah sistem rekomendasi buku di amazon untuk menjawab permasalahan berikut:
-
-- Berdasarkan data mengenai pengguna, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
-- Dengan data rating yang Anda miliki, bagaimana perusahaan dapat merekomendasikan restoran lain yang mungkin disukai dan belum pernah dikunjungi oleh pengguna? 
-
-Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
-
-- Menghasilkan sejumlah rekomendasi restoran yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
-- Menghasilkan sejumlah rekomendasi restoran yang sesuai dengan preferensi pengguna dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering.
-
-
 Berdasarkan latar belakang yang telah diuraikan di atas, maka dapat dirumuskan masalah-masalah yang harus diselesaikan antara lain :
-- Dari serangkaian variabel yang ada, variabel apa yang paling berpengaruh terhadap kesuksesan alarm dapat berbunyi saat ada asap rokok?
-- Apakah kelembapan udara berpengaruh terhadap dalam pendeteksian asap rokok?
-- variabel apakah yang sangat berpengaruh dalam pendeteksian asap rokok?
+- Berdasarkan data mengenai buku dan pembaca, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
+- Dengan data rating yang dimiliki, bagaimana perpustakaan dapat merekomendasikan buku lain yang mungkin disukai oleh pengguna? 
 
 ### Tujuan
-Tujuan dari pembuatan laporan proyek ini adalah : 
-- Mengetahui variabel yang paling berpengaruh dalam pendeteksian asap rokok 
-- Membuat model machine learning yang dapat mendeteksi asap rokok 
-- Mengatasi variabel yang tidak memiliki korelasi dalam pendeteksian asap rokok
+Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
+- Menghasilkan sejumlah rekomendasi buku yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
+- Menghasilkan sejumlah rekomendasi buku yang sesuai dengan preferensi pengguna dengan teknik collaborative filtering.
 
 ### Solusi
 Solusi untuk mencapai tujuan diatas adalah :
-Mengajukan dua solution approach (content based filtering dan collaborative filtering)
-
+- menerapkan content based filtering dalam membuat sistem rekomendasi, dimana mennggunakan nama penulis buku untuk merekomendasikan kepada pembaca
+- menerapkan collaborative filtering dalam membuat sistem rekomendasi, dimana mennggunakan data rating untuk merekomendasikan kepada pembaca
 
 ## Data Understanding
-Memberikan informasi seperti jumlah data, kondisi data, dan informasi mengenai data yang digunakan.
+Dataset yang saya gunakan merupakan dataset yang memiliki data buku, pembaca, dan rating, yang saya unduh dari link berikut : [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset) 
 
-Menuliskan tautan sumber data (link download).
+Dalam dataset ini terdapat 3 file yaitu books.csv, rating.csv, dan user.csv(pembaca). Berikut ini adalah jumlah data dari 3 file tersebut :
 
-Menguraikan seluruh variabel atau fitur pada data.
-Dataset yang saya gunakan merupakan dataset untuk mendeteksi asap rokok, yang saya unduh dari link berikut : [Smoke Detection Dataset](https://www.kaggle.com/datasets/deepcontractor/smoke-detection-dataset) 
-Dataset ini memiliki target variabel dengan value biner (0 dan 1). Selain itu, dataset ini juga mengandung lebih dari 60.000 baris data dan 16 kolom
+```
 
-### Variabel-variabel pada Smoke Detection Dataset adalah sebagai berikut:
-- Unnamed:0 : Penomoran baris
-- UTC : Timestamp waktu dalam detik
-- Temperature : Temperatur udara dalam celcius
-- Humidity : kelembapan udara
-- TVOC : Total senyawa Volatile organik dalam ppb (parts per billion)
-- eCo2 : konsentrasi yang setara dengan CO2
-- Raw H2 : Hidrogen mentah
-- Raw Ethanol : gas ethanol mentah
-- Pressure : tekanan udara
-- PM1.0 : Materi patikulat dengan diameter kurang dari 1,0 mikrometer
-- PM2.5 : Bahan patikulat dengan diameter kurang dari 2,5 mikrometer
-- NC0.5 : Konsentrasi partikel dengan diameter kurang dari 0,5 mikrometer
-- NC1.0 : Konsentrasi partikel dengan diameter kurang dari 1,0 mikrometer
-- NC2.5 : Konsentrasi partikel dengan diameter kurang dari 2,5 mikrometer
-- CNT : Hitungan Sederhana
-- Alarm Kebakaran : (Realitas) 1 jika terjadi kebakaran dan 0 jika terjadi kebakaran
+```
+
+### Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
+Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
+
+books   : merupakan daftar buku-buku yang ada di perpustakaan yang berisi nomor ISBN, judul buku dan penulis buku
+user    : merupakan daftar user
+rating  : merupakan daftar user dan rating yang diberikan terhadap buku yang sudah di baca
+
+Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibangun.
 
 ### Exploratory Data Analysis
 
 contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
 #### Unvariate variabel
-Pada proses ini, saya membagi fitur pada dataset menjadi dua bagian, yaitu numerical features dan categorical features.
-```
-numerical_features = ['UTC', 'Temperature[C]', 'Humidity[%]', 'TVOC[ppb]', 'eCO2[ppm]', 'Raw H2', 'Raw Ethanol', 'Pressure[hPa]', 'PM1.0', 'PM2.5', 'NC0.5', 'NC1.0', 'NC2.5', 'CNT']
-categorical_features =  ['Fire Alarm']
-```
-Kemudian menganalisisnya categorical_features menggunakan grafik yang menunjukan jumlah sample dan presentasi per value dalam variabel 'Fire Alarm'.
-![grafik categorikal](https://user-images.githubusercontent.com/86582130/190961243-aeddb0ea-d359-4298-a965-e2200d4dcd98.png)
 
-Selanjutnya melakukan visualisasi data untuk numerical_features
-```
-sp.hist(bins=50, figsize=(20,15), color='pink')
-plt.show()
-```
 ![Screenshot (439)](https://user-images.githubusercontent.com/86582130/190961226-d56e4502-1df0-4edc-b3dc-47607a547b21.png)
 
 
