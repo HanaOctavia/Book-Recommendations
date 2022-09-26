@@ -68,11 +68,18 @@ Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibang
 
 **Exploratory Variabel books**
 
-Berikut ini adalah variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
+Gambar 1 menunjukan daftar variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
+Penjelasan variabel :
+- ISBN : nomor ISBN buku
+- BookTitle : merupakan data Judul Buku
+- BookAuthor : merupakan data penulis buku
 
 ![Screenshot (459)](https://user-images.githubusercontent.com/86582130/192146231-b68fa486-351f-423c-a521-7fee0872cd2c.png)
 
-Gambar di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah ini ini, yang ditunjukan merupakan 4 data teratas saja
+Gambar 1. variabel dalam variabel books
+
+Tabel di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah ini ini, yang ditunjukan merupakan 4 data teratas saja
+
 |ISBN	      |BookTitle	            |BookAuthor	       |YearOfPublication |Publisher	               |
 | ----------|----------------------|------------------|------------------|-------------------------|
 |	195153448	|Classical Mythology	  |Mark P. O. Morford|	2002	            |Oxford University Press	 |
@@ -81,23 +88,47 @@ Gambar di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah
 |	374157065	|Flu: The Story of ...	| Gina Bari Kolata	|1999		            |Farrar Straus Giroux      |
 |	393045218	|The Mummies of Urumchi|E. J. W. Barber	  |1999		            |W. W. Norton &amp; Company |
 
+Tabel 1. Data variabel books
+
 Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
 
-![Screenshot (461)](https://user-images.githubusercontent.com/86582130/192146507-d88897c4-405c-40b4-8da5-4038b9505c32.png)
+![Screenshot (463)](https://user-images.githubusercontent.com/86582130/192175319-d3f12775-ef5d-4e26-9753-fbf31ea3e720.png)
 
-Gambar di atas menunjukan data buku-buku yang kita miliki berjumlah 271360
+Gambar 2. jumlah buku
+
+Gambar 2 menunjukan data buku-buku yang kita miliki berjumlah 271360
 
 **Exploratory Variabel user**
 
-Data user yang merupakan pembaca buku ini, berjumlah 278858 dan memiliki 3 variabel yaitu UserID, lokasi tempat tinggal, dan umur.
+Berdasarkan tabel 2, menunjukan bahwa bahwah variabel user memiliki 3 variabel yaitu 
+- UserID : berisi user ID
+- location : berisi lokasi user
+- age : umur user
 
-![Screenshot (462)](https://user-images.githubusercontent.com/86582130/192146637-44bc18a5-2cd9-4f9c-8b84-c6cb47eeabe6.png)
+UserID	    Location	                          Age
+| ------|------------------------------------|-----|
+| 1	   |nyc, new york, usa	                 |NaN   |
+| 2	   |	stockton, california, usa	          |18.0   |    
+| 3	   |	moscow, yukon territory, russia     |	NaN   |
+| 4	   |	porto, v.n.gaia, portugal	          |17.0   |
+| 5	   |	farnborough, hants, united kingdom  	|NaN   |
+
+Tabel 2.Data variabel user
 
 
 **Exploratory Variabel rating**
 
-![Screenshot (463)](https://user-images.githubusercontent.com/86582130/192146821-77fac7d8-019e-418c-bf76-20a10cc47e90.png)
-Dari gambar di atas menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
+UserID	|ISBN 	       |BookRating|
+| -----|-----------|-----------|
+276725	|	034545104X  |	0        |
+276726	|	155061224  |	5        |
+276727	|446520802    |	0        |
+276729	|	052165615X  |	3        |
+276729	|	521795028	  |6        |
+
+Tabel 3. Data rating
+
+Tabel 3 menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
 Dari fungsi rating.head(), kita dapat mengetahui bahwa data rating terdiri dari 3 kolom  Kolom-kolom tersebut antara lain:
 
 - userID, merupakan identitas pengguna.
@@ -113,52 +144,70 @@ Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge berdasa
 books = pd.merge(rating, books , on='ISBN', how='left')
 books
 ```
-Gambar di bawah ini, menunjukan data kita berhasil di gabungkan
-![Screenshot (464)](https://user-images.githubusercontent.com/86582130/192147158-45ca0d59-e632-4df4-bfa0-425d4873e7b9.png)
+Tabel 4, menunjukan data kita berhasil di gabungkan
+
+|UserID |ISBN	      |BookRating	  |BookTitle             |BookAuthor	    |YearOfPublication |Publisher	                  |
+| ------|-----------|-------------|-----------------------|--------------|------------------|-----------------------------|
+276725	|034545104X	 |0	           |Flesh Tones: A Novel  |	M. J. Rose    |2002	              |Ballantine Books	            |
+276726	|155061224	 |5	            |	Rites of Passage	    |Judith Rae	    |2001	              |	Heinle		                    |
+276727	|446520802	 |0		           |The Notebook	         |Nicholas Sparks|1996	              |	Warner Books		              |
+276729	|052165615X	|3	            |	Help!: Level 1	      |Philip Prowse	  |1999	              |	Cambridge University Press  |
+276729	|521795028	 |6		           |The Amsterdam Connection...|Sue Leather|2001		              |Cambridge University Press  |
+Tabel 4. Dataframe hasil gabungan
 
 ### Data Preparation 
 
 **1. Mengecek missing value**
 
-Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada gambar di bawahh ini :
+Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada tabel 5  :
 
-![Screenshot (465)](https://user-images.githubusercontent.com/86582130/192150687-22f62420-350a-4d35-81be-696a0efb7839.png)
+|UserID             |       0|
+|ISBN               |       0|
+|BookRating          |      0|
+|BookTitle          |  107463|
+|BookAuthor         |  107464|
+|YearOfPublication  |  107463|
+|Publisher          |  107465|
+|ImageURLS          |  107463|
+|ImageURLM          |  107463|
+|ImageURLL          |  107467|
+Tabel 5. Variabel mengandung missing value
 
 **2. Mengatasi missing value**
 
-Gunakan fungsi di atas untuk menghapus row yang mempunyai missing value.
-```
-books_clean = books.dropna()
-```
-Sekarang data yang kita punya berjumlah 941105. Selanjutnya kita dapat melihat jumlah buku yang unik berdasarkan ISBN. Dari data ini kita mempunyai 257808 data buku.
+Variabel terdeteksi null valueBookTitle, BookAuthor, YearOfPublication, Publisher, ImageURLS, ImageURLM, ImageURLL sebanyak 107467. Gunakan fungsi dropna() untuk menghapus row yang mempunyai missing value
+
+Jumlah data yang kitas sekarang punya berjumlah 941105. Selanjutnya kita dapat melihat jumlah buku yang unik berdasarkan ISBN. Dari data ini kita mempunyai 257808 data buku.
 
 **3. Menghitung dan MelihatBerapa kali buku di rating oleh pembaca**
 
 Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian oleh pembaca. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan count() digunakan untuk menghitung jumlah rating
 
-```
-jml_rating=books_clean.groupby('BookTitle').count()['BookRating'].reset_index()
-jml_rating.rename(columns={'BookRating':'jumlah_rating'},inplace=True)
-jml_rating
-```
-Hasil dari potongan di atas, dapat dilihat dari gambar di bawah ini :
+|BookTitle	                                        |jumlah_rating|
+|A Light in the Storm: The Civil War Diary of ...	 |4            |
+|Always Have Popsicles	                             |1            |
+|Apple Magic (The Collector's series)	              |1            |
+|Beyond IBM: Leadership Marketing and Finance ...	 |1            |
+|Clifford Visita El Hospital (Clifford El Gran...	  |1            |
+Tabel 6 jumlah rating per judul buku
 
-![Screenshot (466)](https://user-images.githubusercontent.com/86582130/192151454-de7c912f-3e77-492e-b415-a3acedf66ae2.png)
-
-Dari gambar di atas dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
+Dari tabel 6dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
 
 **4. Menghitung dan Melihat Berapa kali buku di rating oleh pembaca**
 
 Pada tahap ini, kita akan menghitung rata-rata rating. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan mean() digunakan untuk menghitung rata-rata rating
-```
-rt_rating=books_clean.groupby('BookTitle').mean()['BookRating'].reset_index()
-rt_rating
-```
-Hasil dari potongan di atas, dapat dilihat dari gambar di bawah ini :
 
 ![Screenshot (467)](https://user-images.githubusercontent.com/86582130/192151654-fc9673db-7297-4010-9718-0371acb933df.png)
 
-Dari gambar di atas dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
+Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
+
+|BookTitle	                                       |BookRating|
+|A Light in the Storm: The Civil War Diary of ...	|2.25      |
+|Always Have Popsicles	                           |0.00      |
+|Apple Magic (The Collector's series)             |	0.00      |
+|Beyond IBM: Leadership Marketing and Finance ...	|0.00      |
+|Clifford Visita El Hospital (Clifford El Gran...	|0.00      |
+Tabel 7 rata-rata rating per judul buku
 
 **5. Menggabungkan dataframe jml_rating dengan dataframe rt_rating berdasarkan book title**
 
