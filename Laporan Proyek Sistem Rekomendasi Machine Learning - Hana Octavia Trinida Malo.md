@@ -148,11 +148,8 @@ Dari fungsi rating.head(), kita dapat mengetahui bahwa data rating terdiri dari 
 
 **Menggabungkan dataframe rating dengan books berdasarkan ISBN**
 
-Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge berdasarkan variabe yang sama dari kedua dataframe tersebut, dalam hal ini ISBN
-```
-books = pd.merge(rating, books , on='ISBN', how='left')
-books
-```
+Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge() berdasarkan variabe yang sama dari kedua dataframe tersebut, dalam hal ini ISBN.
+
 Tabel 5, menunjukan data kita berhasil di gabungkan
 
 |UserID |ISBN	      |BookRating	  |BookTitle             |BookAuthor	    |YearOfPublication |Publisher	                  |
@@ -311,25 +308,23 @@ Pada tahap ini kita akan membuat fungsi book_recommendations dengan beberapa par
 - Items           : Nama dan fitur yang digunakan untuk mendefinisikan kemiripan, dalam hal ini adalah ‘book_name’ dan ‘author’.
 - k               : Banyak rekomendasi yang ingin diberikan.
 
-Gunakan argpartition untuk mengambil sejumlah nilai k tertinggi dari similarity data kita
-```
-index = similarity_data.loc[:,book_name].to_numpy().argpartition(
-        range(-1, -k, -1))
-```
-Mengambil data dari tingkat kesamaan yang paling tinggi ke yang paling rendah
-```
-closest = similarity_data.columns[index[-1:-(k+2):-1]]
-```
-Baris kode di bawah ini digunakan agar judul buku yang tidak direkomendasikan tidak muncul
-```
-closest = closest.drop(book_name, errors='ignore')
-```
+Gunakan fungsi argpartition() untuk mengambil sejumlah nilai k tertinggi dari similarity data kita
 
-![Screenshot (475)](https://user-images.githubusercontent.com/86582130/192154419-3c3a67d5-ce43-481f-af4d-3d2aa32a733f.png)
+Mengambil data dari tingkat kesamaan yang paling tinggi ke yang paling rendah dengan fungsi columns[index[-1:-(k+2):-1]]
 
-gambar 6. hasil rekomendasi
+Baris kode di bawah ini digunakan agar judul buku yang tidak direkomendasikan tidak muncul dengan fungsi drop()
 
-Perhatikan gambar 6 , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
+|book_name	|author    |
+|----------|-----------|
+|The Summons	|John Grisham|
+|The Testament	|John Grisham|
+|A Painted House|	JOHN GRISHAM|
+|Life of Pi	|Yann Martel|
+|Where the Heart Is (Oprah's Book Club|Billie Letts|
+
+Tabel 10. hasil rekomendasi
+
+Perhatikan tabel 10, 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
 
 ### Evaluasi
 
@@ -363,42 +358,23 @@ Pada tahap ini kita mengimport library yang dibutuhkan dan mendefinisikan kemudi
 |276729	|	052165615X  |	3        |
 |276729	|	521795028	  |6        |
 
-tabel 8 data rating
+tabel 11 data rating
 
-Dari tabel 8 kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
+Dari tabel 11 kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
 
 
 ### Data Preparation
 
 **1. Menyandikan (encode) variabel ‘user’ dan ‘ISBN’ ke dalam indeks integer**
 
-- Mengubah userID menjadi list tanpa nilai yang sama
-```
-user_ids = df['UserID'].unique().tolist()
-```
- 
- - Melakukan encoding userID
+- Mengubah 'userID' dan 'ISBN' menjadi list tanpa nilai yang sama menggunakan fungsi tolist()
+- Melakukan encoding 'userID' dan 'ISBN' menggunakan fungsi enumerate()
+- Melakukan proses encoding angka ke ke 'userID' dan 'ISBN' enumerate()
 
-```
-user_to_user_encoded = {x: i for i, x in enumerate(user_ids)}
-```
- 
-- Melakukan proses encoding angka ke ke userID
-```
-user_encoded_to_user = {i: x for i, x in enumerate(user_ids)}
-```
-Lakukan hal yang sama pada variabel 'ISBN'
+**2. Memetakan userID dan ISBN ke dataframe yang berkaitan**
 
-**2. Memetakan userID dan placeID ke dataframe yang berkaitan**
-
-- Mapping userID ke dataframe user
-```
-df['user'] = df['UserID'].map(user_to_user_encoded)
-```
-- Mapping ISBN ke dataframe book
-```
-df['book'] = df['ISBN'].map(book_to_book_encoded)
-```
+- Mapping userID ke dataframe user menggunakan fungsi map()
+- Mapping ISBN ke dataframe book menggunakan fungsi map()
 
 **3. Mengecek jumlah data dan mengubah nilai rating**
 
@@ -417,15 +393,6 @@ Proses ini dilakukan agar distribusi data menjadi random
 **5. Membagi dataset**
 
 Dalam tahap ini, kita akan memetakan (mapping) data user dan buku menjadi satu value terlebih dahulu, kemudian membuat data  rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Terakhir kita dapat membagi dataset kita menjadi  data train dan validasi dengan komposisi 80:20. Pembagian dataset ini bertujuan agar memudahkan kita dalam proses evaluasi performa model
-```
-train_indices = int(0.8 * df.shape[0])
-x_train, x_val, y_train, y_val = (
-    x[:train_indices],
-    x[train_indices:],
-    y[:train_indices],
-    y[train_indices:]
-)
-```
 
 ### Modeling
 
@@ -434,10 +401,8 @@ x_train, x_val, y_train, y_val = (
 Pada tahap ini, model menghitung skor kecocokan antara pengguna dan buku dengan teknik embedding. 
 Pertama, kita melakukan proses embedding terhadap data user dan buku. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan buku. 
 
-Barisan kode di bawah ini adalah proses untuk menambahkan bias untuk setiap buku. 
-```
-self.book_bias = layers.Embedding(num_book, 1) 
-```
+Barisan kode di bawah ini adalah proses untuk menambahkan bias untuk setiap buku dengan fungsi Embedding(). 
+
 Kemudian kita memangil layer embedding yang sudah dibuat sebelumnya. Terakhir gunakan fungsi aktivasi sigmoid untuk menetapkan skor kecocokan ditetapkan dalam skala [0,1]
 
 **Model compile**
@@ -445,32 +410,19 @@ Kemudian kita memangil layer embedding yang sudah dibuat sebelumnya. Terakhir gu
 Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation. 
 
 **Memulai training**
-Melakukan training model dengan fungsi fit(), kemudian set epoch = 10, dan batch_size=128 agar proses training berjalan dengan cepat
 
-```
-history = model.fit(
-    x = x_train,
-    y = y_train,
-    batch_size = 128,
-    epochs = 10,
-    validation_data = (x_val, y_val)
-)
-```
+Melakukan training model dengan fungsi fit(), inisialisasi variabel x dan y untuk mengambil data train, kemudian set epoch = 10, dan batch_size=128 agar proses training berjalan dengan cepat
+
 
 ### Mendapatkan Rekomendasi Buku
 
 Untuk mendapatkan rekomendasi buku, pertama kita ambil sampel user secara acak dan definisikan variabel book_not_read yang merupakan daftar buku yang belum pernah dibaca. sample ini yang akan menjadi buku yang kita rekomendasikan kepada pembaca. 
-```
-book_not_read = book_df[~book_df['id'].isin(book_read_by_user.ISBN.values)]['id'] 
-```
 
 Sebelumnya, pembaca telah memberi rating pada beberapa buku yang telah dibaca sebelumnya, kita akan menggunakan rating ini untuk membuat rekomendasi buku kepada pembaca.
 
 Untuk memperoleh rekomendasi buku, gunakan fungsi model.predict().
-```
-ratings = model.predict(user_book_array).flatten()
-```
-Tabel 8 merupakan rekomendasi buku untuk user dengan ID 224349
+
+Tabel 12 merupakan rekomendasi buku untuk user dengan ID 224349
 
 Showing recommendations for users: 224349
 books with high ratings from user
@@ -490,7 +442,7 @@ Top 10 books recommendation
 |Summer Sisters                                                    | Judy Blume     | 
 |The Firm                                                         | John Grisham    | 
 
-tabel 8. rekomendasi 10 buku
+tabel 12. rekomendasi 10 buku
 
 ### Evaluation
 
