@@ -105,13 +105,13 @@ Berdasarkan tabel 2, menunjukan bahwa bahwah variabel user memiliki 3 variabel y
 - location : berisi lokasi user
 - age : umur user
 
-UserID	    Location	                          Age
+|UserID	 |    Location	                      |    Age|
 | ------|------------------------------------|-----|
 | 1	   |nyc, new york, usa	                 |NaN   |
-| 2	   |	stockton, california, usa	          |18.0   |    
-| 3	   |	moscow, yukon territory, russia     |	NaN   |
-| 4	   |	porto, v.n.gaia, portugal	          |17.0   |
-| 5	   |	farnborough, hants, united kingdom  	|NaN   |
+| 2	   |stockton, california, usa	          |18.0   |    
+| 3	   |moscow, yukon territory, russia     |	NaN   |
+| 4	   |porto, v.n.gaia, portugal	          |17.0   |
+| 5	   |farnborough, hants, united kingdom  	|NaN   |
 
 Tabel 2.Data variabel user
 
@@ -153,6 +153,7 @@ Tabel 4, menunjukan data kita berhasil di gabungkan
 276727	|446520802	 |0		           |The Notebook	         |Nicholas Sparks|1996	              |	Warner Books		              |
 276729	|052165615X	|3	            |	Help!: Level 1	      |Philip Prowse	  |1999	              |	Cambridge University Press  |
 276729	|521795028	 |6		           |The Amsterdam Connection...|Sue Leather|2001		              |Cambridge University Press  |
+
 Tabel 4. Dataframe hasil gabungan
 
 ### Data Preparation 
@@ -172,6 +173,7 @@ Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah diga
 |ImageURLS          |  107463|
 |ImageURLM          |  107463|
 |ImageURLL          |  107467|
+
 Tabel 5. Variabel mengandung missing value
 
 **2. Mengatasi missing value**
@@ -191,6 +193,7 @@ Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian ol
 |Apple Magic (The Collector's series)	              |1            |
 |Beyond IBM: Leadership Marketing and Finance ...	 |1            |
 |Clifford Visita El Hospital (Clifford El Gran...	  |1            |
+
 Tabel 6 jumlah rating per judul buku
 
 Dari tabel 6dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
@@ -208,6 +211,7 @@ Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memi
 |Apple Magic (The Collector's series)             |	0.00      |
 |Beyond IBM: Leadership Marketing and Finance ...	|0.00      |
 |Clifford Visita El Hospital (Clifford El Gran...	|0.00      |
+
 Tabel 7 rata-rata rating per judul buku
 
 **5. Menggabungkan dataframe jml_rating dengan dataframe rt_rating berdasarkan book title**
@@ -277,7 +281,7 @@ tf.get_feature_names()
 
 ![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
 
-gambar 3. hasil transformasi matriks
+gambar 4. hasil transformasi matriks
 
 Perhatikanlah, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
 
@@ -369,6 +373,7 @@ Pada tahap ini kita mengimport library yang dibutuhkan dan mendefinisikan kemudi
 |276727	|446520802    |	0        |
 |276729	|	052165615X  |	3        |
 |276729	|	521795028	  |6        |
+
 tabel 8 data rating
 
 Dari tabel 8 kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
@@ -394,6 +399,7 @@ user_to_user_encoded = {x: i for i, x in enumerate(user_ids)}
 user_encoded_to_user = {i: x for i, x in enumerate(user_ids)}
 ```
 Lakukan hal yang sama pada variabel 'ISBN'
+
 **2. Memetakan userID dan placeID ke dataframe yang berkaitan**
 
 - Mapping userID ke dataframe user
@@ -494,6 +500,7 @@ Top 10 books recommendation
 |The Summons                                                      | John Grisham    | 
 |Summer Sisters                                                    | Judy Blume     | 
 |The Firm                                                         | John Grisham    | 
+
 tabel 8. rekomendasi 10 buku
 
 ### Evaluation
@@ -505,6 +512,7 @@ Berdasarkan hasil training model, dihasilkan root_mean_squared_error bernilai 0.
 Berikut ini adalah visualisasi metrik dengan plot
 
 ![Screenshot (478)](https://user-images.githubusercontent.com/86582130/192162604-78a85e19-a54d-48cd-b65c-11411ca8cae8.png)
+
 Gambar 7. Visualisasi metrik
 
 ## Kesimpulan
