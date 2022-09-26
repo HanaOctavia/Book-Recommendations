@@ -103,9 +103,9 @@ Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
 
 ![Screenshot (463)](https://user-images.githubusercontent.com/86582130/192175319-d3f12775-ef5d-4e26-9753-fbf31ea3e720.png)
 
-Gambar 2. jumlah buku
+Gambar 1. jumlah buku
 
-Gambar 2 menunjukan data buku-buku yang kita miliki berjumlah 271360
+Gambar 1 menunjukan data buku-buku yang kita miliki berjumlah 271360
 
 **Exploratory Variabel user**
 
@@ -260,11 +260,13 @@ Pada tahap ini, kita akan membangun sistem rekomendasi sederhana berdasarkan pen
 
 ![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
 
-gambar 4. hasil transformasi matriks
+gambar 2. hasil transformasi matriks
 
-Perhatikanlah, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
+Perhatikanlah gambar 2, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
 
 **3. Menghasilkan vektor tf-idf dalam bentuk matriks**
+
+Mengubah vektor tf-idf dalam bentuk matriks dengan fungsi todense()
 
 ![Screenshot (472)](https://user-images.githubusercontent.com/86582130/192153137-c3c6e914-ca0f-4f7b-9278-3ec01654807f.png)
 
@@ -462,7 +464,7 @@ Berikut ini adalah visualisasi metrik dengan plot
 
 ![Screenshot (478)](https://user-images.githubusercontent.com/86582130/192162604-78a85e19-a54d-48cd-b65c-11411ca8cae8.png)
 
-Gambar 7. Visualisasi metrik
+Gambar 4. Visualisasi metrik
 
 ## Kesimpulan
 
