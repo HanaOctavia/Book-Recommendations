@@ -118,13 +118,13 @@ Tabel 2.Data variabel user
 
 **Exploratory Variabel rating**
 
-UserID	|ISBN 	       |BookRating|
+|UserID	|ISBN 	       |BookRating|
 | -----|-----------|-----------|
-276725	|	034545104X  |	0        |
-276726	|	155061224  |	5        |
-276727	|446520802    |	0        |
-276729	|	052165615X  |	3        |
-276729	|	521795028	  |6        |
+|276725	|	034545104X  |	0        |
+|276726	|	155061224  |	5        |
+|276727	|446520802    |	0        |
+|276729	|	052165615X  |	3        |
+|276729	|	521795028	  |6        |
 
 Tabel 3. Data rating
 
@@ -162,6 +162,7 @@ Tabel 4. Dataframe hasil gabungan
 Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada tabel 5  :
 
 |UserID             |       0|
+| ------------------|-----------|
 |ISBN               |       0|
 |BookRating          |      0|
 |BookTitle          |  107463|
@@ -184,6 +185,7 @@ Jumlah data yang kitas sekarang punya berjumlah 941105. Selanjutnya kita dapat m
 Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian oleh pembaca. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan count() digunakan untuk menghitung jumlah rating
 
 |BookTitle	                                        |jumlah_rating|
+| --------------------------------------------------|-------------|
 |A Light in the Storm: The Civil War Diary of ...	 |4            |
 |Always Have Popsicles	                             |1            |
 |Apple Magic (The Collector's series)	              |1            |
@@ -197,11 +199,10 @@ Dari tabel 6dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dini
 
 Pada tahap ini, kita akan menghitung rata-rata rating. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan mean() digunakan untuk menghitung rata-rata rating
 
-![Screenshot (467)](https://user-images.githubusercontent.com/86582130/192151654-fc9673db-7297-4010-9718-0371acb933df.png)
-
 Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
 
 |BookTitle	                                       |BookRating|
+| ------------------------------------------------|-----------|
 |A Light in the Storm: The Civil War Diary of ...	|2.25      |
 |Always Have Popsicles	                           |0.00      |
 |Apple Magic (The Collector's series)             |	0.00      |
@@ -225,8 +226,11 @@ popular_books=popular_books[popular_books['jumlah_rating']>=500].sort_values('Bo
 
 **7. Merge popular_books dengan dataframe books**
 
-Gabungkan kembali data popular_books diatas dengan dataframe books yang ada awal kemudian drop booktitle yang duplikat.
-![Screenshot (468)](https://user-images.githubusercontent.com/86582130/192152281-2717e9ba-0cc7-468c-a7eb-df5acb737d4a.png)
+Gabungkan kembali data popular_books diatas dengan dataframe books yang ada awal kemudian drop booktitle yang duplikat menggunakan fungsi drop_duplicates()
+
+```
+popular_books=popular_books.merge(books,on='BookTitle').drop_duplicates('BookTitle')
+```
 
 **8. Mengkonversi data series menjadi list**
 
@@ -242,9 +246,14 @@ Hasilnya akan menunjukan ketika variabel tersebut mempunyai 28 data
 
 Pada tahap ini kita akan membuat dictionary untuk menentukan pasangan *key-value* pada data book_id, book_title, dan book_author yang telah kita siapkan sebelumnya.
 
-![Screenshot (469)](https://user-images.githubusercontent.com/86582130/192152703-05a8888b-db6e-452f-993b-7947e7254c96.png)
-
-Gambar di atas ini merupakan dataframe yang akan kita gunakan di tahap selanjutnya yaitu model development dengan content based filtering
+```
+book_new = pd.DataFrame({
+    'id': book_id,
+    'book_name': book_title,
+    'author': book_author
+})
+book_new
+````
 
 ### Modeling
 
@@ -268,27 +277,35 @@ tf.get_feature_names()
 
 ![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
 
+gambar 3. hasil transformasi matriks
+
 Perhatikanlah, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
 
 **3. Menghasilkan vektor tf-idf dalam bentuk matriks**
 
 ![Screenshot (472)](https://user-images.githubusercontent.com/86582130/192153137-c3c6e914-ca0f-4f7b-9278-3ec01654807f.png)
 
+gambar 3. vektor tf-idf
+
 **4. Melihat matriks tf-idf untuk beberapa judul buku dan nama author**
 
 ![Screenshot (473)](https://user-images.githubusercontent.com/86582130/192153289-ddb146f3-fff1-4edc-a693-677608d3817b.png)
 
-Output matriks tf-idf di atas menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
+gambar 4. hasil transformasi matriks
+
+Gambar 4 merupakan output matriks tf-idf yang menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
 
 **5. Menghitung derajat kesamaan**
 
 Pada tahap ini kita akan menghitung derajat kesamaan antara satu buku dengan buku lainnya untuk menghasilkan kandidat buku yang akan direkomendasikan. Proses ini akan menghasilkan keluaran berupa matriks kesamaan dalam bentuk array. 
 
-**6. Melihat matriks kesamaan setiap resto**
+**6. Melihat matriks kesamaan setiap buku**
 
-Gambar di bawah menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
+Gambar 5 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
 
 ![Screenshot (474)](https://user-images.githubusercontent.com/86582130/192153873-769e15fe-2a93-40e3-a185-1afc6cb6aa87.png)
+
+gambar 5. matriks kesamaan setiap buku
 
 Angka 1.0 yang diberi kotak merah mengindikasikan bahwa buku pada kolom X (horizontal) memiliki kesamaan dengan buku pada baris Y (vertikal). Sebagai contoh, buku The Testament teridentifikasi sama (similar) dengan buku The Pelican Brief.
 
@@ -317,13 +334,15 @@ closest = closest.drop(book_name, errors='ignore')
 
 ![Screenshot (475)](https://user-images.githubusercontent.com/86582130/192154419-3c3a67d5-ce43-481f-af4d-3d2aa32a733f.png)
 
-Perhatikan gambar di atas , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
+gambar 6. hasil rekomendasi
+
+Perhatikan gambar 6 , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
 
 ### Evaluasi
 
 Untuk Mengevaluasi hasil rekomendasi kita, gunakan metric pression. Precission adalah rasio prediksi benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positif.
 
-Precision = #of recommendation that are relevant/#of item we recommend.
+Precision = jumlah item rekomendasi yang relevan/jumlah item yang direkomendasi
 
 Dari hasil rekomendasi di atas, diketahui bahwa 'The Firm' di tulis oleh author John Grisham. Dari 5 item yang direkomendasikan, 3 item memiliki di tulis oleh author John Grisham(similar). Maka perhitungan Precission menjadi seperti berikut
 
@@ -342,9 +361,17 @@ Kelebihan dari pendekatan metode ini adalah dapat menghasilkan rekomendasi yang 
 
 Pada tahap ini kita mengimport library yang dibutuhkan dan mendefinisikan kemudian membaca dataset. Dataset yang kita gunakan adalah dataset rating, yang kita definisikan di awal sebelumnya.
 
-![Screenshot (476)](https://user-images.githubusercontent.com/86582130/192155048-a1b8e720-d689-4bb2-80b6-07cc673d7541.png)
 
-Dari gambar di atas kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
+|UserID	|ISBN 	       |BookRating|
+| -----|-----------|-----------|
+|276725	|	034545104X  |	0        |
+|276726	|	155061224  |	5        |
+|276727	|446520802    |	0        |
+|276729	|	052165615X  |	3        |
+|276729	|	521795028	  |6        |
+tabel 8 data rating
+
+Dari tabel 8 kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
 
 
 ### Data Preparation
@@ -410,21 +437,13 @@ x_train, x_val, y_train, y_val = (
 **Menghitung Skor kecocokan**
 
 Pada tahap ini, model menghitung skor kecocokan antara pengguna dan buku dengan teknik embedding. 
-Pertama, kita melakukan proses embedding terhadap data user dan buku. 
-```
-    self.user_embedding = layers.Embedding( # layer embedding user
-        num_users,
-        embedding_size,
-        embeddings_initializer = 'he_normal',
-        embeddings_regularizer = keras.regularizers.l2(1e-6)
-    )
-```
-Barisan kode di atas kita melakukan  embedding terhadap data user.
+Pertama, kita melakukan proses embedding terhadap data user dan buku. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan buku. 
 
 Barisan kode di bawah ini adalah proses untuk menambahkan bias untuk setiap buku. 
 ```
 self.book_bias = layers.Embedding(num_book, 1) 
 ```
+Kemudian kita memangil layer embedding yang sudah dibuat sebelumnya. Terakhir gunakan fungsi aktivasi sigmoid untuk menetapkan skor kecocokan ditetapkan dalam skala [0,1]
 
 **Model compile**
 
@@ -456,38 +475,37 @@ Untuk memperoleh rekomendasi buku, gunakan fungsi model.predict().
 ```
 ratings = model.predict(user_book_array).flatten()
 ```
-Dibawah ini merupakan rekomendasi buku untuk user dengan ID 224349
-```
+Tabel 8 merupakan rekomendasi buku untuk user dengan ID 224349
+
 Showing recommendations for users: 224349
-===========================
 books with high ratings from user
---------------------------------
---------------------------------
+
 Top 10 books recommendation
---------------------------------
-Harry Potter and the Chamber of Secrets (Book 2) : J. K. Rowling
-Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback)) : J. K. Rowling
-Where the Heart Is (Oprah's Book Club (Paperback)) : Billie Letts
-Life of Pi : Yann Martel
-The Notebook : Nicholas Sparks
-Bridget Jones's Diary : Helen Fielding
-The Pilot's Wife : A Novel : Anita Shreve
-The Summons : John Grisham
-Summer Sisters : Judy Blume
-The Firm : John Grisham
-```
+
+|Book Title                                                     |Book Author          |
+|---------------------------------------------------------------|----------------------|
+|Harry Potter and the Chamber of Secrets (Book 2)                 | J. K. Rowling       |              
+|Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback)) |J. K. Rowling       |       
+|Where the Heart Is (Oprah's Book Club (Paperback))                |Billie Letts        |             
+|Life of Pi                                                      | Yann Martel        |
+|The Notebook                                                      | Nicholas Sparks   |                                 
+|Bridget Jones's Diary                                            | Helen Fielding   | 
+|The Pilot's Wife : A Novel                                       | Anita Shreve    | 
+|The Summons                                                      | John Grisham    | 
+|Summer Sisters                                                    | Judy Blume     | 
+|The Firm                                                         | John Grisham    | 
+tabel 8. rekomendasi 10 buku
 
 ### Evaluation
 
 Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4]. Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
 
-![Screenshot (477)](https://user-images.githubusercontent.com/86582130/192162666-a273f187-c5e8-49cf-9fab-d024fd4ed06e.png)
-
-Dari gambar di atas, root_mean_squared_error bernilai 0.3949 dan val_root_mean_squared_error bernilai 0.4060. Skor ini sudah cukup bagus untuk sistem rekomendasi kita.
+Berdasarkan hasil training model, dihasilkan root_mean_squared_error bernilai 0.3949 dan val_root_mean_squared_error bernilai 0.4060. Skor ini sudah cukup bagus untuk sistem rekomendasi kita.
 
 Berikut ini adalah visualisasi metrik dengan plot
 
 ![Screenshot (478)](https://user-images.githubusercontent.com/86582130/192162604-78a85e19-a54d-48cd-b65c-11411ca8cae8.png)
+Gambar 7. Visualisasi metrik
 
 ## Kesimpulan
 
