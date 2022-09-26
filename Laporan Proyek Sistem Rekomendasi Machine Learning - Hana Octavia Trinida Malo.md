@@ -68,15 +68,24 @@ Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibang
 
 **Exploratory Variabel books**
 
-Gambar 1 menunjukan daftar variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
+Tabel 1 menunjukan daftar variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
 Penjelasan variabel :
 - ISBN : nomor ISBN buku
 - BookTitle : merupakan data Judul Buku
 - BookAuthor : merupakan data penulis buku
 
-![Screenshot (459)](https://user-images.githubusercontent.com/86582130/192146231-b68fa486-351f-423c-a521-7fee0872cd2c.png)
+| Column            | Non-Null Count        | Dtype      |
+| ------------------|----------------------|----------|
+|   ISBN             |  271360 non-null | object    |
+|   BookTitle         | 271360 non-null | object    |
+|  BookAuthor         |271359 non-null | object |
+|  YearOfPublication | 271360 non-null  |object|
+|   Publisher         | 271358 non-null | object|
+|  ImageURLS        |  271360 non-null | object|
+|  ImageURLM        |  271360 non-null | object|
+| ImageURLL         | 271357 non-null  |object|
 
-Gambar 1. variabel dalam variabel books
+Tabel 1. variabel dalam variabel books
 
 Tabel di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah ini ini, yang ditunjukan merupakan 4 data teratas saja
 
@@ -88,7 +97,7 @@ Tabel di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah 
 |	374157065	|Flu: The Story of ...	| Gina Bari Kolata	|1999		            |Farrar Straus Giroux      |
 |	393045218	|The Mummies of Urumchi|E. J. W. Barber	  |1999		            |W. W. Norton &amp; Company |
 
-Tabel 1. Data variabel books
+Tabel 2. Data variabel books
 
 Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
 
@@ -100,7 +109,7 @@ Gambar 2 menunjukan data buku-buku yang kita miliki berjumlah 271360
 
 **Exploratory Variabel user**
 
-Berdasarkan tabel 2, menunjukan bahwa bahwah variabel user memiliki 3 variabel yaitu 
+Berdasarkan tabel 3, menunjukan bahwa bahwah variabel user memiliki 3 variabel yaitu 
 - UserID : berisi user ID
 - location : berisi lokasi user
 - age : umur user
@@ -113,7 +122,7 @@ Berdasarkan tabel 2, menunjukan bahwa bahwah variabel user memiliki 3 variabel y
 | 4	   |porto, v.n.gaia, portugal	          |17.0   |
 | 5	   |farnborough, hants, united kingdom  	|NaN   |
 
-Tabel 2.Data variabel user
+Tabel 3.Data variabel user
 
 
 **Exploratory Variabel rating**
@@ -126,9 +135,9 @@ Tabel 2.Data variabel user
 |276729	|	052165615X  |	3        |
 |276729	|	521795028	  |6        |
 
-Tabel 3. Data rating
+Tabel 4. Data rating
 
-Tabel 3 menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
+Tabel 4 menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
 Dari fungsi rating.head(), kita dapat mengetahui bahwa data rating terdiri dari 3 kolom  Kolom-kolom tersebut antara lain:
 
 - userID, merupakan identitas pengguna.
@@ -144,7 +153,7 @@ Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge berdasa
 books = pd.merge(rating, books , on='ISBN', how='left')
 books
 ```
-Tabel 4, menunjukan data kita berhasil di gabungkan
+Tabel 5, menunjukan data kita berhasil di gabungkan
 
 |UserID |ISBN	      |BookRating	  |BookTitle             |BookAuthor	    |YearOfPublication |Publisher	                  |
 | ------|-----------|-------------|-----------------------|--------------|------------------|-----------------------------|
@@ -154,13 +163,13 @@ Tabel 4, menunjukan data kita berhasil di gabungkan
 276729	|052165615X	|3	            |	Help!: Level 1	      |Philip Prowse	  |1999	              |	Cambridge University Press  |
 276729	|521795028	 |6		           |The Amsterdam Connection...|Sue Leather|2001		              |Cambridge University Press  |
 
-Tabel 4. Dataframe hasil gabungan
+Tabel 5. Dataframe hasil gabungan
 
 ### Data Preparation 
 
 **1. Mengecek missing value**
 
-Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada tabel 5  :
+Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada tabel 6  :
 
 |UserID             |       0|
 | ------------------|-----------|
@@ -174,7 +183,7 @@ Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah diga
 |ImageURLM          |  107463|
 |ImageURLL          |  107467|
 
-Tabel 5. Variabel mengandung missing value
+Tabel 6. Variabel mengandung missing value
 
 **2. Mengatasi missing value**
 
@@ -194,15 +203,15 @@ Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian ol
 |Beyond IBM: Leadership Marketing and Finance ...	 |1            |
 |Clifford Visita El Hospital (Clifford El Gran...	  |1            |
 
-Tabel 6 jumlah rating per judul buku
+Tabel 7 jumlah rating per judul buku
 
-Dari tabel 6dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
+Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
 
 **4. Menghitung dan Melihat Berapa kali buku di rating oleh pembaca**
 
 Pada tahap ini, kita akan menghitung rata-rata rating. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan mean() digunakan untuk menghitung rata-rata rating
 
-Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
+Dari tabel 8 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
 
 |BookTitle	                                       |BookRating|
 | ------------------------------------------------|-----------|
@@ -212,52 +221,32 @@ Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memi
 |Beyond IBM: Leadership Marketing and Finance ...	|0.00      |
 |Clifford Visita El Hospital (Clifford El Gran...	|0.00      |
 
-Tabel 7 rata-rata rating per judul buku
+Tabel 8 rata-rata rating per judul buku
 
 **5. Menggabungkan dataframe jml_rating dengan dataframe rt_rating berdasarkan book title**
 
-Setelah kita menghitung berapa kali sebuah buku dinilai pembaca dan menghitung rata-rata rating setiap buku, kita akan menggabungkan kedua dataframe di atas. Penggabungan ini bertujuan untuk membuat dataframe baru yang akan digunakan untuk memfilter buku-buku mana yang populer berdasarkan rating.
-```
-popular_books= jml_rating.merge(rt_rating,on = 'BookTitle')
-popular_books
-```
+Setelah kita menghitung berapa kali sebuah buku dinilai pembaca dan menghitung rata-rata rating setiap buku, kita akan menggabungkan kedua dataframe di atas menggunakan fungsi merge(). Penggabungan ini bertujuan untuk membuat dataframe baru yang akan digunakan untuk memfilter buku-buku mana yang populer berdasarkan rating.
+
 **6. Mengambil data buku yang populer**
 
-Dalam proses ini kita akan mengambil data yang sudah dirating lebih dari 500 kali. 
-```
-popular_books=popular_books[popular_books['jumlah_rating']>=500].sort_values('BookRating',ascending=False).head(50)
-```
+Dalam proses ini kita akan mengambil data yang sudah dirating lebih dari 500 kali. Kemudian kita urutkan daanya berdasarkan data yang terbesar dengan fungsi sort_values() dan mengatur ascending = False
+
 
 **7. Merge popular_books dengan dataframe books**
 
-Gabungkan kembali data popular_books diatas dengan dataframe books yang ada awal kemudian drop booktitle yang duplikat menggunakan fungsi drop_duplicates()
+Gabungkan kembali data popular_books diatas dengan dataframe books yang ada awal dengan fungsi merge()kemudian drop booktitle yang duplikat menggunakan fungsi drop_duplicates()
 
-```
-popular_books=popular_books.merge(books,on='BookTitle').drop_duplicates('BookTitle')
-```
 
 **8. Mengkonversi data series menjadi list**
 
-Pada tahap ini kita akan mengkonversikan variabel ISBN, Book Title dan Book author menjadi list, kemudian kita hitung jumlahnya 
-```
-print(len(book_id))
-print(len(book_title))
-print(len(book_author))
-```
+Pada tahap ini kita akan mengkonversikan variabel ISBN, Book Title dan Book author menjadi list menggunakan fungsi tolist(), kemudian kita hitung jumlahnya dengan fungsi len().
+
 Hasilnya akan menunjukan ketika variabel tersebut mempunyai 28 data
 
 **9. Membuat dictionary pada data**
 
 Pada tahap ini kita akan membuat dictionary untuk menentukan pasangan *key-value* pada data book_id, book_title, dan book_author yang telah kita siapkan sebelumnya.
-
-```
-book_new = pd.DataFrame({
-    'id': book_id,
-    'book_name': book_title,
-    'author': book_author
-})
-book_new
-````
+Gunakan fungsi DataFrame() untuk membuat dataframe baru berdasarkan *key-value* yang sudah ditentukan sebelumnya
 
 ### Modeling
 
@@ -265,18 +254,11 @@ book_new
 
 Pada tahap ini, kita akan membangun sistem rekomendasi sederhana berdasarkan penulis buku. Pada tahap ini kita akan melakukan 3 hal yaitu :
  
-- Inisialisasi TfidfVectorizer
-```
-tf = TfidfVectorizer()
-```
-- Melakukan perhitungan idf pada data author
-```
-tf.fit(book_new['author']) 
-```
-- Mapping array dari fitur index integer ke fitur nama
-```
-tf.get_feature_names() 
-```
+- Inisialisasi TfidfVectorizer dengan membuat variabel baru 'tf'
+- Melakukan perhitungan idf pada data author dengan fungsi fit()
+
+- Mapping array dari fitur index integer ke fitur nama dengan fungsi get_feature_names()
+
 **2. Melakukan fit dan transformasi ke dalam bentuk matriks**
 
 ![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
@@ -305,11 +287,18 @@ Pada tahap ini kita akan menghitung derajat kesamaan antara satu buku dengan buk
 
 **6. Melihat matriks kesamaan setiap buku**
 
-Gambar 5 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
+Tabel 9 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
 
-![Screenshot (474)](https://user-images.githubusercontent.com/86582130/192153873-769e15fe-2a93-40e3-a185-1afc6cb6aa87.png)
+|book_name	|Summer Sisters	|The Pilot's Wife : A Novel|	Bridget Jones's Diary	|Divine Secrets of the Ya-Ya Sisterhood: A Novel|The Pelican Brief and Fishing|
+|------------|--------------|---------------------------|------------------------|-------------------------------------------------|-----------------------------|
+|The Brethren|	0.0	|0.000000	|0.0	|0.0	|0.0|
+|Harry Potter and the Sorcerer's Stone |	0.0|	0.000000|	0.0	|0.0	|0.0|
+|The Da Vinci Code |	0.0|	0.000000|	0.0	|0.0	|0.0|
+|The Testament	|0.0	|0.000000|	0.0	|0.0	|1.0|
+|A Painted House	|0.0	|0.000000|	0.0	|0.0|	0.0|
+|House of Sand and Fog|	0.0|	0.000000|	0.0|	0.0|	0.0|
 
-gambar 5. matriks kesamaan setiap buku
+Tabel 9. matriks kesamaan setiap buku
 
 Angka 1.0 yang diberi kotak merah mengindikasikan bahwa buku pada kolom X (horizontal) memiliki kesamaan dengan buku pada baris Y (vertikal). Sebagai contoh, buku The Testament teridentifikasi sama (similar) dengan buku The Pelican Brief.
 
