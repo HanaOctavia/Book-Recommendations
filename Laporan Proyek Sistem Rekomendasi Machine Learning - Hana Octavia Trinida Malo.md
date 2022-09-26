@@ -2,7 +2,7 @@
 
 ## Domain Proyek
 
-Sistem rekomendasi adalah sistem yang digunakan untuk memberikan rekomendasi kepada customer berdasarkan berbagai informasi  yang bertujuan untuk untuk meningkatkan penjualan produk. Sistem  rekomendasi dapat ditemukan pada situs-situs belanja onlineseperti eBay, Alibaba, OLX, yang menjual pakaian, barang-barang elektronik, peralatan  rumah  tangga, dan yang lainnya. Sistem rekomendasi juga dapat ditemukan pada situs yang murni memberikan rekomendasi kepada penggunanya, seperti situs    MovieLens dan Internet Movie Database (IMDb) yang memberikan rekomendasi film yang akan ditontonkepada penggunanya[1]
+Sistem rekomendasi adalah sistem yang digunakan untuk memberikan rekomendasi kepada *customer* berdasarkan berbagai informasi  yang bertujuan untuk untuk meningkatkan penjualan produk. Sistem  rekomendasi dapat ditemukan pada situs-situs belanja onlineseperti eBay, Alibaba, OLX, yang menjual pakaian, barang-barang elektronik, peralatan  rumah  tangga, dan yang lainnya. Sistem rekomendasi juga dapat ditemukan pada situs yang murni memberikan rekomendasi kepada penggunanya, seperti situs   MovieLens dan Internet Movie Database (IMDb) yang memberikan rekomendasi film yang akan ditontonkepada penggunanya[1]
 
 Pembaca di perpustakaan memiliki ketertarikan membaca yang berbeda - beda, ada pembaca yang menyukai beberapa penulis buku saja sehingga hanya ingin membaca penulis yang pembaca suka. Ada juga pembaca yang membaca buku, dilihat dari seberapa disukainya buku itu oleh pembaca yang sudah pernah membaca buku sebelumnya. Semakin banyak yang menyukai buku itu, semakin tertarik pembaca tersebut untuk membaca buku itu.
 
@@ -22,7 +22,7 @@ Berdasarkan latar belakang yang telah diuraikan di atas, maka dapat dirumuskan m
 
 ### Tujuan
 
-Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
+Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan sebagai berikut:
 
 - Menghasilkan sejumlah rekomendasi buku yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
 - Menghasilkan sejumlah rekomendasi buku yang sesuai dengan preferensi pengguna dengan teknik collaborative filtering.
@@ -275,12 +275,12 @@ gambar 3. vektor tf-idf
 	
 |book_name						|					shapero	|michael|	anita|	diamant|	martel|	melissa|	amy	|rowling|	rebecca	|judy	|sue|	mclaughlin	|crichton	|monk|	
 |-------------------------------------------------------|-----------------------------------------------|---------|----------|-----------|------------|---------|-------------------|--------|--------------|---------|---------|--------------|---------|---------|
-|The Nanny Diaries: A Novel|	0.0	|0.000000	|0.000000|	0.000000	|0.0	|0.0	|0.000000|	0.0	|0.0|	0.0|	0.000000	|
-|Where the Heart Is (Oprah's Book Club (Paperback))|	0.0	|0.000000|	0.000000|	0.000000|	0.0|	0.0	|0.000000|	0.0|	0.0|	0.0|	0.000000|
-|Angels &amp; Demons|	0.0|	0.000000	|0.000000|	0.000000	|0.0|	0.0|	0.000000|	0.0|	0.0|	0.0|	0.000000|	
-|Bridget Jones's Diary|	0.0	|0.000000|	0.000000|	0.000000	|0.0|	0.0	|0.000000|	0.0|	0.0|	0.0	|	0.000000	|
-|Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))|	0.0|	0.707107	|0.000000|	0.000000|	0.0|	0.0|	0.000000	|1.0|	0.0|	0.0	|0.000000|
-|The Pilot's Wife : A Novel|	0.0|	0.000000|	0.664679	|0.000000|	0.0	|0.0	|0.000000	|0.0v	0.0	|0.0|	0.747129|
+|The Nanny Diaries: A Novel|	0.0	|0.000000	|0.000000|	0.000000	|0.0	|0.0	|0.000000|	0.0	|0.0|	0.0|	0.000000	|	0.0	|0.0|	0.0|
+|Where the Heart Is (Oprah's Book Club (Paperback))|	0.0	|0.000000|	0.000000|	0.000000|	0.0|	0.0	|0.000000|	0.0|	0.0|	0.0|	0.000000|	0.0	|0.0|	0.0|
+|Angels &amp; Demons|	0.0|	0.000000	|0.000000|	0.000000	|0.0|	0.0|	0.000000|	0.0|	0.0|	0.0|	0.000000|	0.0	|0.0|	0.0|	
+|Bridget Jones's Diary|	0.0	|0.000000|	0.000000|	0.000000	|0.0|	0.0	|0.000000|	0.0|	0.0|	0.0	|	0.000000	|	0.0	|0.0|	0.0|
+|Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))|	0.0|	0.707107	|0.000000|	0.000000|	0.0|	0.0|	0.000000	|1.0|	0.0|	0.0	|0.000000|	0.0	|0.0|	0.0|
+|The Pilot's Wife : A Novel|	0.0|	0.000000|	0.664679	|0.000000|	0.0	|0.0	|0.000000	|0.0|	0.0	|0.0|	0.747129|	0.0	|0.0|	0.0|
 
 tabel 9. hasil transformasi matriks
 
@@ -292,7 +292,7 @@ Pada tahap ini kita akan menghitung derajat kesamaan antara satu buku dengan buk
 
 **6. Melihat matriks kesamaan setiap buku**
 
-Tabel 9 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
+Tabel 10 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
 
 |book_name	|Summer Sisters	|The Pilot's Wife : A Novel|	Bridget Jones's Diary	|Divine Secrets of the Ya-Ya Sisterhood: A Novel|The Pelican Brief and Fishing|
 |------------|--------------|---------------------------|------------------------|-------------------------------------------------|-----------------------------|
@@ -303,7 +303,7 @@ Tabel 9 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data 
 |A Painted House	|0.0	|0.000000|	0.0	|0.0|	0.0|
 |House of Sand and Fog|	0.0|	0.000000|	0.0|	0.0|	0.0|
 
-Tabel 9. matriks kesamaan setiap buku
+Tabel 10. matriks kesamaan setiap buku
 
 Angka 1.0 yang diberi kotak merah mengindikasikan bahwa buku pada kolom X (horizontal) memiliki kesamaan dengan buku pada baris Y (vertikal). Sebagai contoh, buku The Testament teridentifikasi sama (similar) dengan buku The Pelican Brief.
 
