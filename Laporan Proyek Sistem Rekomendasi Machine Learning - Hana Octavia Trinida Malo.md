@@ -64,7 +64,7 @@ Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibang
 
 #### Exploratory Data Analysis
 
-##### Unvariate variabel
+#### Unvariate variabel
 
 **Exploratory Variabel books**
 
@@ -272,11 +272,19 @@ gambar 3. vektor tf-idf
 
 **4. Melihat matriks tf-idf untuk beberapa judul buku dan nama author**
 
-![Screenshot (473)](https://user-images.githubusercontent.com/86582130/192153289-ddb146f3-fff1-4edc-a693-677608d3817b.png)
+	
+|book_name						|					shapero	|michael|	anita|	diamant|	martel|	melissa|	amy	|rowling|	rebecca	|judy	|sue|	mclaughlin	|crichton	|monk|	
+|-------------|-----------|---------|----------|--------|---------|---------|----------|----------|-----------|---------|---------|
+|The Nanny Diaries: A Novel|	0.0	|0.000000	|0.000000|	0.000000	|0.0	|0.0	|0.000000|	0.0	|0.0|	0.0|	0.000000	|
+|Where the Heart Is (Oprah's Book Club (Paperback))|	0.0	|0.000000|	0.000000|	0.000000|	0.0|	0.0	|0.000000|	0.0|	0.0|	0.0|	0.000000|
+|Angels &amp; Demons|	0.0|	0.000000	|0.000000|	0.000000	|0.0|	0.0|	0.000000|	0.0|	0.0|	0.0|	0.000000|	
+|Bridget Jones's Diary|	0.0	|0.000000|	0.000000|	0.000000	|0.0|	0.0	|0.000000|	0.0|	0.0|	0.0	|	0.000000	|
+|Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))|	0.0|	0.707107	|0.000000|	0.000000|	0.0|	0.0|	0.000000	|1.0|	0.0|	0.0	|0.000000|
+|The Pilot's Wife : A Novel|	0.0|	0.000000|	0.664679	|0.000000|	0.0	|0.0	|0.000000	|0.0v	0.0	|0.0|	0.747129|
 
-gambar 4. hasil transformasi matriks
+tabel 9. hasil transformasi matriks
 
-Gambar 4 merupakan output matriks tf-idf yang menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
+Tabel 9 merupakan output matriks tf-idf yang menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
 
 **5. Menghitung derajat kesamaan**
 
