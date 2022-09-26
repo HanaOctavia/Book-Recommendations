@@ -72,9 +72,14 @@ Berikut ini adalah variabel-variabel yang ada di dalam books. Tetapi yang kita g
 
 ![Screenshot (459)](https://user-images.githubusercontent.com/86582130/192146231-b68fa486-351f-423c-a521-7fee0872cd2c.png)
 
-Gambar di bawah ini adalah data-data di dalam variabel buku. Dalam gambar ini, yang ditunjukan merupakan 4 data teratas saja
-
-![Screenshot (458)](https://user-images.githubusercontent.com/86582130/192146153-d57f17fe-c867-44a4-b1b4-03e3500c939f.png)
+Gambar di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah ini ini, yang ditunjukan merupakan 4 data teratas saja
+|ISBN	      |BookTitle	            |BookAuthor	       |YearOfPublication |Publisher	               |
+| ----------|----------------------|------------------|------------------|-------------------------|
+|	195153448	|Classical Mythology	  |Mark P. O. Morford|	2002	            |Oxford University Press	 |
+|	2005018	  |Clara Callan	Richard  |Bruce Wright	     |2001	             |HarperFlamingo Canada	   |
+|	60973129	 |Decision in Normandy	 |Carlo D'Este	     |1991		            |HarperPerennial	          |
+|	374157065	|Flu: The Story of ...	| Gina Bari Kolata	|1999		            |Farrar Straus Giroux      |
+|	393045218	|The Mummies of Urumchi|E. J. W. Barber	  |1999		            |W. W. Norton &amp; Company |
 
 Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
 
@@ -264,6 +269,20 @@ closest = closest.drop(book_name, errors='ignore')
 ![Screenshot (475)](https://user-images.githubusercontent.com/86582130/192154419-3c3a67d5-ce43-481f-af4d-3d2aa32a733f.png)
 
 Perhatikan gambar di atas , 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
+
+### Evaluasi
+
+Untuk Mengevaluasi hasil rekomendasi kita, gunakan metric pression. Precission adalah rasio prediksi benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positif.
+
+Precision = #of recommendation that are relevant/#of item we recommend.
+
+Dari hasil rekomendasi di atas, diketahui bahwa 'The Firm' di tulis oleh author John Grisham. Dari 5 item yang direkomendasikan, 3 item memiliki di tulis oleh author John Grisham(similar). Maka perhitungan Precission menjadi seperti berikut
+
+
+Precission = 3/5
+Precission = 60%
+
+Sehingga sistem rekomendasi menggunakan content based learning kita menghasilkan nilai precission sebesar 60%
 
 ## Collaborative Filtering
 
