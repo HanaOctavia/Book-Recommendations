@@ -1,66 +1,66 @@
-# Laporan Proyek Machine Learning - Hana Octavia Trinida Malo
+# Machine Learning Project Report - Hana Octavia Trinida Malo
 
-## Domain Proyek
+## Project Domain
 
-Sistem rekomendasi adalah sistem yang digunakan untuk memberikan rekomendasi kepada *customer* berdasarkan berbagai informasi  yang bertujuan untuk untuk meningkatkan penjualan produk. Sistem  rekomendasi dapat ditemukan pada situs-situs belanja *online* seperti eBay, Alibaba, OLX, yang menjual pakaian, barang-barang elektronik, peralatan  rumah  tangga, dan yang lainnya. Sistem rekomendasi juga dapat ditemukan pada situs yang murni memberikan rekomendasi kepada penggunanya, seperti situs   MovieLens dan Internet Movie Database (IMDb) yang memberikan rekomendasi film yang akan ditontonkepada penggunanya[1]
+A recommendation system is a system for making suggestions to *customers* based on various pieces of information with the goal of enhancing product sales. On *online* buying sites like eBay, Alibaba, and OLX, which sell clothing, electronics, home appliances, and other items, recommendation systems can be found. There are additional recommendation systems on websites that only offer recommendations to their users, such as the MovieLens website and the Internet Movie Database (IMDb), which give its users suggestions for movies to watch.[1]
 
-Pembaca di perpustakaan memiliki ketertarikan membaca yang berbeda - beda, ada pembaca yang menyukai beberapa penulis buku saja sehingga hanya ingin membaca penulis yang pembaca suka. Ada juga pembaca yang membaca buku, dilihat dari seberapa disukainya buku itu oleh pembaca yang sudah pernah membaca buku sebelumnya. Semakin banyak yang menyukai buku itu, semakin tertarik pembaca tersebut untuk membaca buku itu.
+Different readers in the library have different reading preferences; some only want to read the works of authors they enjoy. According to how well readers who have already read the book feel about it, there are also readers who have read the book. The reader is more eager to read a book the more favorable reviews it receives.
 
-Jumlah buku bacaan yang ada di perpustakaan saat ini, kurang lebih berjumlah 250an ribu buku. Banyaknya jumlah buku ini seringkali membuat pembaca kesulitan untuk memilih buku yang ingin dibaca, dan berakhir mengurungkan niat untuk membaca buku. Untuk mempermudah pembaca dalam membaca buku yang sesuai dengan keinginannya perlu dibangun sebuah sistem rekomendasi, dibangunnya sistem rekomendasi tentunya dapat menjadi solusi terbaik agar jumlah pembaca bertambah.
+Currently, the library has about 250 thousand books available for reading. Because there are so many books available, readers frequently find it challenging to decide which one to read, which discourages them from doing so. Building a suggestion system can, of course, be the ideal way to increase the number of readers since it will make it simpler for readers to read books in accordance with their preferences.
 
 
-## Pendefinisian Bisnis
+## Business Definition
 
-Sebuah perpustakaan memiliki berbagai informasi mengenai pembaca, daftar buku dan beserta rating yang diberikan pembaca untuk buku-buku tersebut. Perpustakaan ini ingin memiliki sebuah sistem rekomendasi yang dapat memberikan rekomendasi kepada pembaca berdasarkan penulis buku yang pernah dia baca sebelumnya dan rating pembaca.
+A library contains a variety of reader information, a catalog of books, and reader ratings for those books. The recommendation system that this library hopes to implement will be able to offer suggestions to readers depending on the author of the book they have already read and their rating.
 
-### Masalah
+### Problem Statement
 
-Berdasarkan latar belakang yang telah diuraikan di atas, maka dapat dirumuskan masalah-masalah yang harus diselesaikan antara lain :
+Based on the background described above, the problems that must be resolved include:
 
-- Berdasarkan data mengenai buku dan pembaca, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
-- Dengan data rating yang dimiliki, bagaimana perpustakaan dapat merekomendasikan buku lain yang mungkin disukai oleh pengguna? 
+- Based on data about books and readers, how to make a personalized recommendation system using content-based filtering techniques?
+- With the rating data you have, how can the library recommend other books that users might like?
 
-### Tujuan
+### Objective
 
-Untuk  menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan sebagai berikut:
+To answer these questions, create a recommendation system with the following objectives:
 
-- Menghasilkan sejumlah rekomendasi buku yang dipersonalisasi untuk pengguna dengan teknik content-based filtering.
-- Menghasilkan sejumlah rekomendasi buku yang sesuai dengan preferensi pengguna dengan teknik collaborative filtering.
+- Generate a number of personalized book recommendations for users with content-based filtering techniques.
+- Generate a number of book recommendations according to user preferences with collaborative filtering techniques.
 
-### Solusi
+### Solution
 
-Solusi untuk mencapai tujuan diatas adalah :
+Solutions to achieve the above goals are:
 
-- menerapkan content based filtering dalam membuat sistem rekomendasi, dimana mennggunakan nama penulis buku untuk merekomendasikan kepada pembaca
-- menerapkan collaborative filtering dalam membuat sistem rekomendasi, dimana mennggunakan data rating untuk merekomendasikan kepada pembaca
+- implementing content based filtering in creating a recommendation system, which uses the author's name to recommend to readers
+- apply collaborative filtering in making recommendation systems, which use rating data to recommend to readers
 
 ## Content Based Filtering
 
-Content Base Filtering adalah teknik rekomendasi yang memberikan rekomendasi kepada pengguna dengan memahami kebutuhan , preferensi, dan kendala pengguna. Informasi ini dan interaksi pengguna sebelumnya, kemudian dibuat sedemikian rupa untuk membangun profil pengguna. Kelebihan teknik ini adalah dapat memberikan rekomendasi kepada pengguna walaupun hal yang direkomendasi merupakan item baru tanpa harus melihat rating dari item baru tersebut[2]. 
+Content Base Filtering is a recommendation technique that provides recommendations to users by understanding the user's needs, preferences, and constraints. This information and the user's previous interactions are then created in such a way as to build a user profile. The advantage of this technique is that it can provide recommendations to users even though the recommended item is a new item without having to look at the rating of the new item [2].
 
-Kelemahan dari teknik content-based filtering adalah hanya dapat merekomendasika tem-item yang memiliki kemiripan sehingga item yang direkomendasi terbatas[3].
+The weakness of the content-based filtering technique is that it can only recommend items that are similar so that the recommended items are limited [3].
 
 ### Data Understanding
 
-Dataset yang saya gunakan merupakan dataset yang memiliki data buku, pembaca, dan rating, yang saya unduh dari link berikut : [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset) 
+The dataset that I use is a dataset that has data on books, readers, and ratings, which I download from the following link: [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset)
 
-Dalam dataset ini terdapat 3 file yaitu books.csv, rating.csv, dan user.csv(pembaca). Berikut ini adalah jumlah data dari 3 file tersebut :
+In this dataset there are 3 files namely books.csv, rating.csv, and user.csv(readers). The following is the amount of data from the 3 files:
 
 ```
-Jumlah data buku:  271360
-Jumlah data user:  278858
-Jumlah data rating:  95513
+Number of book data:  271360
+Number of user data:  278858
+Number of rating data :  95513
 ```
 
-#### Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
+#### The variables in the Book Recommendation Dataset are as follows:
 
-Variabel-variabel pada Book Recommendation Dataset adalah sebagai berikut:
+The variables in the Book Recommendation Dataset are as follows:
 
-- books   : merupakan daftar buku-buku yang ada di perpustakaan yang berisi nomor ISBN, judul buku dan penulis buku
-- user    : merupakan daftar user
-- rating  : merupakan daftar user dan rating yang diberikan terhadap buku yang sudah di baca
+- books : is a list of books in the library containing the ISBN number, book title and book author
+- user : is a list of users
+- rating: is a list of users and ratings given to books that have been read
 
-Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibangun.
+The books and rating variables will be used in the recommendation model to be built.
 
 #### Exploratory Data Analysis
 
@@ -68,11 +68,11 @@ Variabel books dan rating akan digunakan pada model rekomendasi yang akan dibang
 
 **Exploratory Variabel books**
 
-Tabel 1 menunjukan daftar variabel-variabel yang ada di dalam books. Tetapi yang kita gunakan hanya variabel ISBN, judul buku, dan penulis buku.
-Penjelasan variabel :
-- ISBN : nomor ISBN buku
-- BookTitle : merupakan data Judul Buku
-- BookAuthor : merupakan data penulis buku
+Table 1 shows a list of the variables in the books. But what we use are only the variables ISBN, book title, and book author.
+Explanation of variables :
+- ISBN : ISBN number of the book
+- BookTitle : is the book title data
+- BookAuthor : is the book author's data
 
 | Column            | Non-Null Count        | Dtype      |
 | ------------------|----------------------|----------|
@@ -85,9 +85,9 @@ Penjelasan variabel :
 |  ImageURLM        |  271360 non-null | object|
 | ImageURLL         | 271357 non-null  |object|
 
-Tabel 1. variabel dalam variabel books
+Table 1. variables in the books variable
 
-Tabel di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah ini ini, yang ditunjukan merupakan 4 data teratas saja
+The table below is the data in the book variable. In the table below, only the top 4 data are shown
 
 |ISBN	      |BookTitle	            |BookAuthor	       |YearOfPublication |Publisher	               |
 | ----------|----------------------|------------------|------------------|-------------------------|
@@ -97,22 +97,22 @@ Tabel di bawah ini adalah data-data di dalam variabel buku. Dalam tabel dibawah 
 |	374157065	|Flu: The Story of ...	| Gina Bari Kolata	|1999		            |Farrar Straus Giroux      |
 |	393045218	|The Mummies of Urumchi|E. J. W. Barber	  |1999		            |W. W. Norton &amp; Company |
 
-Tabel 2. Data variabel books
+Table 2. Books variable data
 
-Untuk total buku yang ada berjumlah, seperti pada gambar dibawah ini
+The total number of books available is as shown in the figure below
 
 ![Screenshot (463)](https://user-images.githubusercontent.com/86582130/192175319-d3f12775-ef5d-4e26-9753-fbf31ea3e720.png)
 
-Gambar 1. jumlah buku
+Figure 1. number of books
 
-Gambar 1 menunjukan data buku-buku yang kita miliki berjumlah 271360
+Figure 1 shows the data of the books we have totaling 271360
 
 **Exploratory Variabel user**
 
-Berdasarkan tabel 3, menunjukan bahwa bahwah variabel user memiliki 3 variabel yaitu 
-- UserID : berisi user ID
-- location : berisi lokasi user
-- age : umur user
+Based on table 3, it shows that the user variable has 3 variables namely
+- UserID : contains user ID
+- location : contains the user's location
+- age : the age of the user
 
 |UserID	 |    Location	                      |    Age|
 | ------|------------------------------------|-----|
@@ -122,7 +122,7 @@ Berdasarkan tabel 3, menunjukan bahwa bahwah variabel user memiliki 3 variabel y
 | 4	   |porto, v.n.gaia, portugal	          |17.0   |
 | 5	   |farnborough, hants, united kingdom  	|NaN   |
 
-Tabel 3.Data variabel user
+Table 3. User variable data
 
 
 **Exploratory Variabel rating**
@@ -135,22 +135,22 @@ Tabel 3.Data variabel user
 |276729	|	052165615X  |	3        |
 |276729	|	521795028	  |6        |
 
-Tabel 4. Data rating
+Table 4. Rating data
 
-Tabel 4 menunjukan jumlah pembaca yang sudah melakukan rating sebanyak 95513 pembaca
-Dari fungsi rating.head(), kita dapat mengetahui bahwa data rating terdiri dari 3 kolom  Kolom-kolom tersebut antara lain:
+Table 4 shows the number of readers who have rated as many as 95513 readers
+From the rating.head() function, we can see that the rating data consists of 3 columns. The columns include:
 
-- userID, merupakan identitas pengguna.
-- ISBN, merupakan identitas buku, yang berisi nomor ISBN buku.
-- Rating, merupakan data rating untuk buku
+- userID, is the identity of the user.
+- ISBN, is the identity of the book, which contains the book's ISBN number.
+- Rating, is rating data for books
 
 ### Data Preprocessing
 
-**Menggabungkan dataframe rating dengan books berdasarkan ISBN**
+**Combine rating dataframe with books based on ISBN**
 
-Untuk menggabung kan kedua dataframe tersebut, kita gunakan fungsi merge() berdasarkan variabe yang sama dari kedua dataframe tersebut, dalam hal ini ISBN.
+To combine the two dataframes, we use the merge() function based on the same variables from the two dataframes, in this case the ISBN.
 
-Tabel 5, menunjukan data kita berhasil di gabungkan
+Table 5 shows that our data has been successfully combined
 
 |UserID |ISBN	      |BookRating	  |BookTitle             |BookAuthor	    |YearOfPublication |Publisher	                  |
 | ------|-----------|-------------|-----------------------|--------------|------------------|-----------------------------|
@@ -160,13 +160,13 @@ Tabel 5, menunjukan data kita berhasil di gabungkan
 276729	|052165615X	|3	            |	Help!: Level 1	      |Philip Prowse	  |1999	              |	Cambridge University Press  |
 276729	|521795028	 |6		           |The Amsterdam Connection...|Sue Leather|2001		              |Cambridge University Press  |
 
-Tabel 5. Dataframe hasil gabungan
+Table 5. Dataframe combined results
 
-### Data Preparation 
+### Data Preparation
 
-**1. Mengecek missing value**
+**1. Check missing values**
 
-Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah digabungkan tadi, kita gunakan fungsi isnull() dan gunakan fungsi sum() untuk menghitung jumlahnya, hasilnya seperti pada tabel 6  :
+To find out whether or not there is a missing value in the combined dataframe, we use the isnull() function and use the sum() function to calculate the number, the results are as shown in table 6 :
 
 |UserID             |       0|
 | ------------------|-----------|
@@ -180,17 +180,17 @@ Untuk mengetahui ada atau tidaknya missing value dalam dataframe yang sudah diga
 |ImageURLM          |  107463|
 |ImageURLL          |  107467|
 
-Tabel 6. Variabel mengandung missing value
+Table 6. Variables contain missing values
 
-**2. Mengatasi missing value**
+**2. Overcoming missing values**
 
-Variabel terdeteksi null valueBookTitle, BookAuthor, YearOfPublication, Publisher, ImageURLS, ImageURLM, ImageURLL sebanyak 107467. Gunakan fungsi dropna() untuk menghapus row yang mempunyai missing value
+Variables detected are null values BookTitle, BookAuthor, YearOfPublication, Publisher, ImageURLS, ImageURLM, ImageURLL as many as 107467. Use the dropna() function to delete rows that have missing values
 
-Jumlah data yang kitas sekarang punya berjumlah 941105. Selanjutnya kita dapat melihat jumlah buku yang unik berdasarkan ISBN. Dari data ini kita mempunyai 257808 data buku.
+The amount of data we now have is 941105. Next we can see the number of unique books based on ISBNs. From this data we have 257808 book data.
 
-**3. Menghitung dan MelihatBerapa kali buku di rating oleh pembaca**
+**3. Counting and Seeing How many times the book has been rated by readers**
 
-Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian oleh pembaca. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan count() digunakan untuk menghitung jumlah rating
+At this stage, we will count how many times a book has been rated by readers. The groupby('BookTitle') function is used to group data by book title and count() is used to calculate the number of ratings
 
 |BookTitle	                                        |jumlah_rating|
 | --------------------------------------------------|-------------|
@@ -200,15 +200,15 @@ Pada tahap ini, kita akan menghitung berapa kali sebuah buku diberi penilaian ol
 |Beyond IBM: Leadership Marketing and Finance ...	 |1            |
 |Clifford Visita El Hospital (Clifford El Gran...	  |1            |
 
-Tabel 7 jumlah rating per judul buku
+Table 7 number of ratings per book title
 
-Dari tabel 7 dapat kita lihat bahwa buku dengan judul Always Have Popsicles, dinilai sebanyak 1 kali.
+From table 7 we can see that the book entitled Always Have Popsicles was assessed 1 time.
 
-**4. Menghitung dan Melihat Berapa kali buku di rating oleh pembaca**
+**4. Count and see how many times the book has been rated by readers**
 
-Pada tahap ini, kita akan menghitung rata-rata rating. Fungsi groupby('BookTitle') digunakan untuk mengelompokan data berdasarkan judul buku dan mean() digunakan untuk menghitung rata-rata rating
+At this stage, we will calculate the average rating. The function groupby('BookTitle') is used to group data by book title and mean() is used to calculate the average rating
 
-Dari tabel 8 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memiliki rata-rata rating sebesar 0.
+From table 8 we can see that the book entitled Always Have Popsicles has an average rating of 0.
 
 |BookTitle	                                       |BookRating|
 | ------------------------------------------------|-----------|
@@ -218,61 +218,61 @@ Dari tabel 8 dapat kita lihat bahwa buku dengan judul Always Have Popsicles memi
 |Beyond IBM: Leadership Marketing and Finance ...	|0.00      |
 |Clifford Visita El Hospital (Clifford El Gran...	|0.00      |
 
-Tabel 8 rata-rata rating per judul buku
+Table 8 average rating per book title
 
-**5. Menggabungkan dataframe jml_rating dengan dataframe rt_rating berdasarkan book title**
+**5. Merging the jml_rating dataframe with the rt_rating dataframe based on book title**
 
-Setelah kita menghitung berapa kali sebuah buku dinilai pembaca dan menghitung rata-rata rating setiap buku, kita akan menggabungkan kedua dataframe di atas menggunakan fungsi merge(). Penggabungan ini bertujuan untuk membuat dataframe baru yang akan digunakan untuk memfilter buku-buku mana yang populer berdasarkan rating.
+After we have counted the number of times a book has been rated by readers and calculated the average rating for each book, we will combine the two dataframes above using the merge() function. This merger aims to create a new dataframe that will be used to filter which books are popular based on ratings.
 
-**6. Mengambil data buku yang populer**
+**6. Retrieving popular book data**
 
-Dalam proses ini kita akan mengambil data yang sudah dirating lebih dari 500 kali. Kemudian kita urutkan daanya berdasarkan data yang terbesar dengan fungsi sort_values() dan mengatur ascending = False
-
-
-**7. Merge popular_books dengan dataframe books**
-
-Gabungkan kembali data popular_books diatas dengan dataframe books yang ada awal dengan fungsi merge()kemudian drop booktitle yang duplikat menggunakan fungsi drop_duplicates()
+In this process we will retrieve data that has been rated more than 500 times. Then we sort the data based on the largest data with the sort_values() function and set ascending = False
 
 
-**8. Mengkonversi data series menjadi list**
+**7. Merge popular_books with dataframe books**
 
-Pada tahap ini kita akan mengkonversikan variabel ISBN, Book Title dan Book author menjadi list menggunakan fungsi tolist(), kemudian kita hitung jumlahnya dengan fungsi len().
+Recombine the popular_books data above with the existing books dataframe with the merge() function then drop duplicate book titles using the drop_duplicates() function
 
-Hasilnya akan menunjukan ketika variabel tersebut mempunyai 28 data
 
-**9. Membuat dictionary pada data**
+**8. Convert data series to list**
 
-Pada tahap ini kita akan membuat dictionary untuk menentukan pasangan *key-value* pada data book_id, book_title, dan book_author yang telah kita siapkan sebelumnya.
-Gunakan fungsi DataFrame() untuk membuat dataframe baru berdasarkan *key-value* yang sudah ditentukan sebelumnya
+At this stage we will convert the ISBN, Book Title and Book author variables into a list using the tolist() function, then we count the number with the len() function.
+
+The results will show when the variable has 28 data
+
+**9. Create a dictionary on data**
+
+At this stage we will create a dictionary to determine *key-value* pairs in the book_id, book_title, and book_author data that we prepared earlier.
+Use the DataFrame() function to create a new dataframe based on a predefined *key-value*
 
 ### Modeling
 
-**1. Menerapkan TF-IDF Vectorizer**
+**1. Implementing TF-IDF Vectorizer**
 
-Pada tahap ini, kita akan membangun sistem rekomendasi sederhana berdasarkan penulis buku. Pada tahap ini kita akan melakukan 3 hal yaitu :
+At this stage, we'll build a simple recommendation system based on the author of the book. At this stage we will do 3 things, namely:
  
-- Inisialisasi TfidfVectorizer dengan membuat variabel baru 'tf'
-- Melakukan perhitungan idf pada data author dengan fungsi fit()
+- Initialize TfidfVectorizer by creating new variable 'tf'
+- Performs idf calculations on author data with the fit() function
 
-- Mapping array dari fitur index integer ke fitur nama dengan fungsi get_feature_names()
+- Mapping array from integer index feature to feature name with get_feature_names() function
 
-**2. Melakukan fit dan transformasi ke dalam bentuk matriks**
+**2. Performing fit and transformation into matrix form**
 
 ![Screenshot (471)](https://user-images.githubusercontent.com/86582130/192153035-d4b7208f-a80d-4f96-9951-cc12dcadc52e.png)
 
-gambar 2. hasil transformasi matriks
+Figure 2. Matrix transformation results
 
-Perhatikanlah gambar 2, matriks yang kita miliki berukuran (28, 40). Nilai 28 merupakan ukuran data dan 40 merupakan matrik nama author.
+Look at figure 2, the matrix we have is (28, 40). The value of 28 is the data size and 40 is the author name matrix.
 
-**3. Menghasilkan vektor tf-idf dalam bentuk matriks**
+**3. Generate tf-idf vector in matrix form**
 
-Mengubah vektor tf-idf dalam bentuk matriks dengan fungsi todense()
+Convert the tf-idf vector in matrix form with the todense() function
 
 ![Screenshot (472)](https://user-images.githubusercontent.com/86582130/192153137-c3c6e914-ca0f-4f7b-9278-3ec01654807f.png)
 
-gambar 3. vektor tf-idf
+figure 3. tf-idf vector
 
-**4. Melihat matriks tf-idf untuk beberapa judul buku dan nama author**
+**4. View the tf-idf matrix for several book titles and author names**
 
 	
 |book_name						|					shapero	|michael|	anita|	diamant|	martel|	melissa|	amy	|rowling|	rebecca	|judy	|sue|	mclaughlin	|crichton	|monk|	
@@ -284,17 +284,17 @@ gambar 3. vektor tf-idf
 |Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))|	0.0|	0.707107	|0.000000|	0.000000|	0.0|	0.0|	0.000000	|1.0|	0.0|	0.0	|0.000000|	0.0	|0.0|	0.0|
 |The Pilot's Wife : A Novel|	0.0|	0.000000|	0.664679	|0.000000|	0.0	|0.0	|0.000000	|0.0|	0.0	|0.0|	0.747129|	0.0	|0.0|	0.0|
 
-tabel 9. hasil transformasi matriks
+table 9. matrix transformation results
 
-Tabel 9 merupakan output matriks tf-idf yang menunjukkan Buku 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' ditulis oleh 'rowling. Matriks menunjukan bahwa buku tersebut ditulis oleh rowling. Hal ini terlihat dari nilai matriks 1.0 pada penulis rowling.
+Table 9 is the tf-idf matrix output showing the book 'Harry Potter and the Sorcerer's Stone (Harry Potter (Paperback))' written by 'rowling. The matrix shows that the book was written by Rowling. This can be seen from the matrix value of 1.0 on Rowling's author.
 
-**5. Menghitung derajat kesamaan**
+**5. Calculating the degree of similarity**
 
-Pada tahap ini kita akan menghitung derajat kesamaan antara satu buku dengan buku lainnya untuk menghasilkan kandidat buku yang akan direkomendasikan. Proses ini akan menghasilkan keluaran berupa matriks kesamaan dalam bentuk array. 
+At this stage we will calculate the degree of similarity between one book and another to produce candidate books to be recommended. This process will produce output in the form of a similarity matrix in the form of an array.
 
-**6. Melihat matriks kesamaan setiap buku**
+**6. See the similarity matrix for each book**
 
-Tabel 10 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data yang kita miliki. Artinya, kita mengidentifikasi tingkat kesamaan pada 28 judul. Gambar di atas memilih 10 judul buku pada baris vertikal dan 5 buku pada sumbu horizontal
+Table 10 shows that Shape (28, 28) is a measure of the similarity matrix of the data we have. That is, we identify the level of similarity in 28 titles. The image above selects 10 book titles on the vertical row and 5 books on the horizontal axis
 
 |book_name	|Summer Sisters	|The Pilot's Wife : A Novel|	Bridget Jones's Diary	|Divine Secrets of the Ya-Ya Sisterhood: A Novel|The Pelican Brief and Fishing|
 |------------|--------------|---------------------------|------------------------|-------------------------------------------------|-----------------------------|
@@ -305,24 +305,24 @@ Tabel 10 menunjukan Shape (28, 28) merupakan ukuran matriks similarity dari data
 |A Painted House	|0.0	|0.000000|	0.0	|0.0|	0.0|
 |House of Sand and Fog|	0.0|	0.000000|	0.0|	0.0|	0.0|
 
-Tabel 10. matriks kesamaan setiap buku
+Table 10. Similarity matrix for each book
 
-Angka 1.0 yang diberi kotak merah mengindikasikan bahwa buku pada kolom X (horizontal) memiliki kesamaan dengan buku pada baris Y (vertikal). Sebagai contoh, buku The Testament teridentifikasi sama (similar) dengan buku The Pelican Brief.
+The number 1.0 marked with a red box indicates that the books in column X (horizontal) are the same as the books in row Y (vertical). For example, The Testament book is identified as similar (similar) to The Pelican Brief.
 
-**7. Mendapatkan Rekomendasi**
+**7. Get Recommendations**
 
-Pada tahap ini kita akan membuat fungsi book_recommendations dengan beberapa parameter sebagai berikut:
+At this stage we will create a book_recommendations function with the following parameters:
 
-- book_name       : Judul buku
-- Similarity_data : Dataframe mengenai similarity yang telah kita definisikan sebelumnya.
-- Items           : Nama dan fitur yang digunakan untuk mendefinisikan kemiripan, dalam hal ini adalah ‘book_name’ dan ‘author’.
-- k               : Banyak rekomendasi yang ingin diberikan.
+- book_name : The title of the book
+- Similarity_data : Dataframe regarding similarity that we have defined before.
+- Items: Names and features used to define similarities, in this case are 'book_name' and 'author'.
+- k : There are many recommendations that you want to give.
 
-Gunakan fungsi argpartition() untuk mengambil sejumlah nilai k tertinggi dari similarity data kita
+Use the argpartition() function to retrieve the highest k values from our data similarity
 
-Mengambil data dari tingkat kesamaan yang paling tinggi ke yang paling rendah dengan fungsi columns[index[-1:-(k+2):-1]]
+Retrieving data from the highest to the lowest similarity level with the column[index[-1:-(k+2):-1]] function
 
-Baris kode di bawah ini digunakan agar judul buku yang tidak direkomendasikan tidak muncul dengan fungsi drop()
+The below line of code is used to prevent unrecommended book titles from appearing with the drop() function
 
 |book_name	|author    |
 |----------|-----------|
@@ -332,32 +332,32 @@ Baris kode di bawah ini digunakan agar judul buku yang tidak direkomendasikan ti
 |Life of Pi	|Yann Martel|
 |Where the Heart Is (Oprah's Book Club|Billie Letts|
 
-Tabel 10. hasil rekomendasi
+Table 10. recommendation results
 
-Perhatikan tabel 10, 'The Firm' di tulis oleh author John Grisham. Kita berhasil memberikan 5 rekomendasi buku itu 3 di antarnya ditulis oleh John Grisham
+Look at table 10, 'The Firm' was written by author John Grisham. We managed to provide 5 book recommendations, 3 of which were written by John Grisham
 
-### Evaluasi
+### Evaluation
 
-Untuk Mengevaluasi hasil rekomendasi kita, gunakan metric pression. Precission adalah rasio prediksi benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positif.
+To evaluate the results of our recommendations, use metric compression. Precision is the ratio of positive correct predictions compared to the overall positive predicted outcome.
 
-Precision = jumlah item rekomendasi yang relevan/jumlah item yang direkomendasi
+Precision = number of relevant recommendation items / number of recommended items
 
-Dari hasil rekomendasi di atas, diketahui bahwa 'The Firm' di tulis oleh author John Grisham. Dari 5 item yang direkomendasikan, 3 item memiliki di tulis oleh author John Grisham(similar). Maka perhitungan Precission menjadi seperti berikut
+From the recommendations above, it is known that 'The Firm' was written by author John Grisham. Of the 5 recommended items, 3 items have been written by author John Grisham(similar). Then the Precission calculation becomes as follows
 
 
 Precission = 3/5
 Precission = 60%
 
-Sehingga sistem rekomendasi menggunakan content based learning kita menghasilkan nilai precission sebesar 60%
+So that the recommendation system uses our content based learning to produce a precision value of 60%
 
 ## Collaborative Filtering
 
-Collaborative filtering merupakan salah satu metode rekomendasi yang dapat memberikan rekomendasi kepada pengguna berdasarkan item yang disukai oleh pengguna lain yang memiliki preferensi yang mirip[2].
-Kelebihan dari pendekatan metode ini adalah dapat menghasilkan rekomendasi yang berkualitas. Kekurangan metode ini , kompleksitas perhitungan akan semakin bertambah seiring dengan bertambahnya pengguna sistem, semakin banyak pengguna yang menggunakan sistem maka proses perekomendasian akan semakin lama 
+Collaborative filtering is a recommendation method that can provide recommendations to users based on items liked by other users who have similar preferences [2].
+The advantage of this method approach is that it can produce quality recommendations. The drawback of this method is that the complexity of the calculation will increase along with the increase in system users, the more users use the system, the longer the recommendation process.
 
 ### Data Understanding
 
-Pada tahap ini kita mengimport library yang dibutuhkan dan mendefinisikan kemudian membaca dataset. Dataset yang kita gunakan adalah dataset rating, yang kita definisikan di awal sebelumnya.
+At this stage we import the required libraries and define then read the dataset. The dataset that we use is the rating dataset, which we defined earlier.
 
 
 |UserID	|ISBN 	       |BookRating|
@@ -368,71 +368,71 @@ Pada tahap ini kita mengimport library yang dibutuhkan dan mendefinisikan kemudi
 |276729	|	052165615X  |	3        |
 |276729	|	521795028	  |6        |
 
-tabel 11 data rating
+table 11 rating data
 
-Dari tabel 11 kita mengetahui dataset kita berjumlah 1048575 dan memiliki 3 variabel yaitu UserID, ISBN, dan rating
+From table 11 we know that our dataset is 1048575 and has 3 variables namely UserID, ISBN, and rating
 
 
 ### Data Preparation
 
-**1. Menyandikan (encode) variabel ‘user’ dan ‘ISBN’ ke dalam indeks integer**
+**1. Encode the variables 'user' and 'ISBN' into an integer index**
 
-- Mengubah 'userID' dan 'ISBN' menjadi list tanpa nilai yang sama menggunakan fungsi tolist()
-- Melakukan encoding 'userID' dan 'ISBN' menggunakan fungsi enumerate()
-- Melakukan proses encoding angka ke ke 'userID' dan 'ISBN' enumerate()
+- Changed 'userID' and 'ISBN' to list without the same value using tolist() function
+- Encode 'userID' and 'ISBN' using enumerate() function
+- Perform the process of encoding numbers to 'userID' and 'ISBN' enumerate()
 
-**2. Memetakan userID dan ISBN ke dataframe yang berkaitan**
+**2. Map userID and ISBN to related dataframes**
 
-- Mapping userID ke dataframe user menggunakan fungsi map()
-- Mapping ISBN ke dataframe book menggunakan fungsi map()
+- Mapping userID to user dataframe using map() function
+- ISBN mapping to book dataframe using map() function
 
-**3. Mengecek jumlah data dan mengubah nilai rating**
+**3. Check the amount of data and change the rating value**
 
-Mengecek jumlah data seperti jumlah user, jumlah buku, kemudian mengubah nilai rating menjadi float. 
+Check the amount of data such as the number of users, the number of books, then change the rating value to float.
 ```
 95513
 322473
-Jumlah User: 95513, Jumlah buku: 322473, Min Rating: 0.0, Max Rating: 10.0
+Number of Users: 95513, Number of books: 322473, Min Rating: 0.0, Max Rating: 10.0
 ```
-Dari keluaran di atas kita dapat mengetahui jumlah User aalah 95513 dan jumlah buku adalah 322473
+From the output above we can find out the number of users is 95513 and the number of books is 322473
 
-**4. Mengacak dataset**
+**4. Randomize datasets**
 
-Proses ini dilakukan agar distribusi data menjadi random
+This process is done so that the data distribution becomes random
 
-**5. Membagi dataset**
+**5. Sharing datasets**
 
-Dalam tahap ini, kita akan memetakan (mapping) data user dan buku menjadi satu value terlebih dahulu, kemudian membuat data  rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Terakhir kita dapat membagi dataset kita menjadi  data train dan validasi dengan komposisi 80:20. Pembagian dataset ini bertujuan agar memudahkan kita dalam proses evaluasi performa model
+In this stage, we will first map user and book data into one value, then create rating data on a scale of 0 to 1 so that it is easy to carry out the training process. Finally, we can divide our dataset into train and validation data with a composition of 80:20. The division of this dataset aims to make it easier for us in the process of evaluating model performance
 
 ### Modeling
 
-**Menghitung Skor kecocokan**
+**Calculating Match Score**
 
-Pada tahap ini, model menghitung skor kecocokan antara pengguna dan buku dengan teknik embedding. 
-Pertama, kita melakukan proses embedding terhadap data user dan buku. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan buku. 
+At this stage, the model calculates the match score between the user and the book using the embedding technique.
+First, we embed the user and book data. Apart from that, we can also add biases for each user and book.
 
-Barisan kode di bawah ini adalah proses untuk menambahkan bias untuk setiap buku dengan fungsi Embedding(). 
+The line of code below is the process for adding a bias for each book with the Embedding() function.
 
-Kemudian kita memangil layer embedding yang sudah dibuat sebelumnya. Terakhir gunakan fungsi aktivasi sigmoid untuk menetapkan skor kecocokan ditetapkan dalam skala [0,1]
+Then we call the embedding layer that was created before. Finally use the sigmoid activation function to set the match score set on a [0,1] scale
 
-**Model compile**
+**Model compilation**
 
-Model ini menggunakan Binary Crossentropy untuk menghitung loss function, Adam (Adaptive Moment Estimation) sebagai optimizer, dan root mean squared error (RMSE) sebagai metrics evaluation. 
+This model uses Binary Crossentropy to calculate the loss function, Adam (Adaptive Moment Estimation) as the optimizer, and root mean squared error (RMSE) as evaluation metrics.
 
-**Memulai training**
+**Starting training**
 
-Melakukan training model dengan fungsi fit(), inisialisasi variabel x dan y untuk mengambil data train, kemudian set epoch = 10, dan batch_size=128 agar proses training berjalan dengan cepat
+Conduct model training with the fit() function, initialize the x and y variables to retrieve the train data, then set epoch = 10, and batch_size = 128 so that the training process runs quickly
 
 
-### Mendapatkan Rekomendasi Buku
+### Getting Book Recommendations
 
-Untuk mendapatkan rekomendasi buku, pertama kita ambil sampel user secara acak dan definisikan variabel book_not_read yang merupakan daftar buku yang belum pernah dibaca. sample ini yang akan menjadi buku yang kita rekomendasikan kepada pembaca. 
+To get book recommendations, first we take a random sample of users and define the book_not_read variable, which is a list of books that have never been read. This sample will be a book that we recommend to readers.
 
-Sebelumnya, pembaca telah memberi rating pada beberapa buku yang telah dibaca sebelumnya, kita akan menggunakan rating ini untuk membuat rekomendasi buku kepada pembaca.
+Previously, readers have rated several books that have been read before, we will use this rating to make book recommendations to readers.
 
-Untuk memperoleh rekomendasi buku, gunakan fungsi model.predict().
+To get book recommendations, use the model.predict() function.
 
-Tabel 12 merupakan rekomendasi buku untuk user dengan ID 224349
+Table 12 is a book recommendation for users with ID 224349
 
 Showing recommendations for users: 224349
 books with high ratings from user
@@ -452,25 +452,24 @@ Top 10 books recommendation
 |Summer Sisters                                                    | Judy Blume     | 
 |The Firm                                                         | John Grisham    | 
 
-tabel 12. rekomendasi 10 buku
+Table 12. Recommendations for 10 books
 
 ### Evaluation
 
-Metrik yang digunakan untuk evaluasi model adalah  Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) adalah metrik yang digunakan dalam akurasi prediktif yang perhitungannya konsepnya mirip dengan metrik MAE, namun pengkuadratan kesalahan menghasilkan lebih banyak penekanan pada kesalahan daripada yang menggunakan metrik MAE[4]. Singkatnya, RMSE pada dasarnya mengukur kesalahan kuadrat rata-rata dari prediksi kita. 
+The metric used for model evaluation is Root Mean Squared Error (RMSE). Root Mean Squared Error (RMSE) is a metric used in predictive accuracy whose calculation concept is similar to the MAE metric, but the squaring of errors results in more emphasis on errors than using the MAE metric [4]. In short, RMSE basically measures the mean squared error of our predictions.
 
-Berdasarkan hasil training model, dihasilkan root_mean_squared_error bernilai 0.3949 dan val_root_mean_squared_error bernilai 0.4060. Skor ini sudah cukup bagus untuk sistem rekomendasi kita.
+Based on the results of the training model, the root_mean_squared_error value is 0.3949 and the val_root_mean_squared_error value is 0.4060. This score is good enough for our recommendation system.
 
-Berikut ini adalah visualisasi metrik dengan plot
-
+Here is a visualization of metrics with plots
 ![Screenshot (478)](https://user-images.githubusercontent.com/86582130/192162604-78a85e19-a54d-48cd-b65c-11411ca8cae8.png)
 
-Gambar 4. Visualisasi metrik
+Figure 4. Metrics visualization
 
-## Kesimpulan
+## Conclusion
 
-Berdasarkan hasil *development* sistem rekomendasi menggunakan 2 metode yaitu Content-Based Filtering dan Collaborative Filltering dan evaluasi menggunakanbmetrik RMSE untuk colaborative filtering dan precission untuk content based filtering, menunjukan bahwa kedua metode ini dapat membangun rekomendasi dengan baik, ditunjukan dengan kemampuan merekomendasikan buku berdasarkan penulis dan rating teratas
+Based on the results of *development* the recommendation system uses 2 methods, namely Content-Based Filtering and Collaborative Filltering and evaluation using the RMSE metric for collaborative filtering and precision for content-based filtering, showing that these two methods can build recommendations well, indicated by the ability to recommend books based on authors and top rating
 
-## Referensi
+## Reference
 
 [1] Ritdrix, A. H. & Wirawan, P. W., 2018. Sistem Rekomendasi Bukumenggunakan Metode Item-Basedcollaborative Filtering. *Jurnal Masyarakat Informatika*, 9(2), pp. 24-32.
 
