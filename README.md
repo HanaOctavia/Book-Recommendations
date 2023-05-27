@@ -6,7 +6,7 @@ A recommendation system is a system for making suggestions to *customers* based 
 
 Different readers in the library have different reading preferences; some only want to read the works of authors they enjoy. According to how well readers who have already read the book feel about it, there are also readers who have read the book. The reader is more eager to read a book the more favorable reviews it receives.
 
-Currently, the library has about 250 thousand books available for reading. Because there are so many books available, readers frequently find it challenging to decide which one to read, which discourages them from doing so. Building a suggestion system can, of course, be the ideal way to increase the number of readers since it will make it simpler for readers to read books in accordance with their preferences.
+Currently, the library has about 250 thousand books available for reading. Because there are so many books available, readers frequently find it challenging to decide which one to read, which discourages them from doing so. Building a suggestion system can be the ideal way to increase the number of readers since it will make it simpler for readers to read books in accordance with their preferences.
 
 
 ## Business Definition
