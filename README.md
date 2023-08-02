@@ -34,9 +34,9 @@ Solutions to achieve the above goals are:
 - implementing content based filtering in creating a recommendation system, which uses the author's name to recommend to readers
 - apply collaborative filtering in making recommendation systems, which use rating data to recommend to readers
 
-## Content Based Filtering
+## Collaborative Filtering
 
-Content Base Filtering is a recommendation technique that provides recommendations to users by understanding the user's needs, preferences, and constraints. This information and the user's previous interactions are then created in such a way as to build a user profile. The advantage of this technique is that it can provide recommendations to users even though the recommended item is a new item without having to look at the rating of the new item [2].
+Collaborative filtering is a recommendation method that can provide recommendations to users based on items liked by other users who have similar preferences [2].
 
 The weakness of the content-based filtering technique is that it can only recommend items that are similar so that the recommended items are limited [3].
 
@@ -350,9 +350,9 @@ Precission = 60%
 
 So that the recommendation system uses our content based learning to produce a precision value of 60%
 
-## Collaborative Filtering
+## Content Based Filtering
+Content Base Filtering is a recommendation technique that provides recommendations to users by understanding the user's needs, preferences, and constraints. This information and the user's previous interactions are then created in such a way as to build a user profile. The advantage of this technique is that it can provide recommendations to users even though the recommended item is a new item without having to look at the rating of the new item [2]
 
-Collaborative filtering is a recommendation method that can provide recommendations to users based on items liked by other users who have similar preferences [2].
 The advantage of this method approach is that it can produce quality recommendations. The drawback of this method is that the complexity of the calculation will increase along with the increase in system users, the more users use the system, the longer the recommendation process.
 
 ### Data Understanding
